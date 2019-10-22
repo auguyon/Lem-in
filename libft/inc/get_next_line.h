@@ -18,7 +18,7 @@
 # include <fcntl.h>
 # include "str.h"
 
-# define BUFF_SIZE 1
+# define BUFF_SIZE 512
 
 typedef struct		s_gnl
 {

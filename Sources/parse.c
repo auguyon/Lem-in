@@ -116,19 +116,6 @@ int		check_comment_n_info(char *line)
 	return (0);
 }
 
-int		check_tubes(char *line) // strcchr ?
-{
-	int i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '-')
-			return (1);
-	}
-	return (0);
-}
-
 // int		check_error(char *line)
 // {
 // 	int		i;
@@ -153,9 +140,8 @@ int 	main(int ac, char **av)
 	{
 		// if (check_error(line))
 		// 	return (free_n_quit());
-		if (info->end)
-			if (check_tubes(line))
-				break ;
+		if (info->end && ft_strchr(line, '-'))
+			break ;
 		if (check_comment_n_info(line))
 			code = get_info(info, line);
 		else
