@@ -19,9 +19,10 @@ void	get_value(t_map **map, t_info *info, char *line, unsigned int size)
 	unsigned int j;
 
 	j = size + 1;
+	printf("%s || %d\n", line, size);
+	map[info->i]->room = ft_strncpy(map[info->i]->room, line, size);
 	while (line[j])
 	{
-		map[info->i]->room = ft_strncpy(map[info->i]->room, line, size);
 		map[info->i]->x = ft_atoi(line + j);
 		while (line[j] && line[j] != ' ')
 			j++;
@@ -34,18 +35,22 @@ int		init_room(t_map *map, t_info *info, char *line)
 {
 	unsigned int	size;
 
-	if (ft_countc(line, ' ') == 2)
-		size = ft_strclen(line, ' ') - 1;	
-	else
-	{
-		size = ft_strlen(line);
-		while (line[size] != ' ')
-			size--;
-		size--;
-		while (ft_isdigit(line[size]))
-			size--;
-	}
-	if (!(map->room = (char*)malloc(sizeof(char) * size + 1)))
+	size = 0;
+	printf("{%s}\n", line);
+	while (line[size] != ' ')
+		size++;
+	// if (ft_countc(line, ' ') == 2)
+	// 	size = ft_strclen(line, ' ') - 1;
+	// else
+	// {
+		// size = ft_strlen(line);
+		// while (line[size] != ' ')
+		// 	size--;
+		// size--;
+		// while (ft_isdigit(line[size]))
+		// 	size--;
+	// }
+	if (!(map->room = (char*)malloc(sizeof(char) * size)))
 		exit(0);
 	if (!(map->tubs = (unsigned int*)malloc(sizeof(unsigned int) * SIZE_TUBES + 1)))
 		exit(0);
@@ -62,7 +67,6 @@ void	get_tubes(t_map **map, t_info *info, char *line, short *code)
 	get_value(map, info, line, size);
 	if (*(code) == 1)
 	{
-		printf("%s\n", map[info->i]->room);
 		info->n_start = ft_strdup(map[info->i]->room);
 		info->start = info->i;
 	}
@@ -166,7 +170,6 @@ void	parse(t_info *info, t_map **map)
 	i = 0;
 	while (get_next_line(0, &line))
 	{
-		printf("%s\n", line);
 		// if (check_error_room(line))
 		// 	return (free_n_quit(info, map, -2));
 		if (info->end && ft_strchr(line, '-'))
@@ -190,7 +193,11 @@ void	parse(t_info *info, t_map **map)
 			get_tubes(map, info, line, &code);
 		free(line);
 	}
-	parse_link(info, map, line);
+	while (line || get_next_line(0, &line))
+	{
+		parse_link(info, map, line);
+		free(line);
+	}
 }
 
 int 	main(int ac, char **av)
