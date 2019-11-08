@@ -6,7 +6,7 @@
 /*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/11/08 20:18:02 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/11/08 21:41:51 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int get_balance(t_btree *n)
 t_btree *btree_new(t_info *info, short *code)
 {
     t_btree     *new;
-    t_link      *link;
 
     if (!(new = (t_btree*)malloc(sizeof(t_btree))))
         exit(0);
@@ -143,58 +142,70 @@ t_btree *add_room(t_btree *groot, t_info *info, char *line, short *code)
 	return (groot);
 }
 
-void	put_link(t_btree *branch, t_btree *adr_room, t_link **link, char *room)
+void	put_link(t_btree **adr_room, t_link **link, char *room)
 {
     t_link  *new;
     t_link  *current;
 
-	current = *link;
+	printf("Cest la pute link qui bug\n");
+	if (*link)
+	{
+		printf("Cul rent\n");
+		current = *link;
+	}
+	printf("Cest la pute link qui bug\n");
 	if (!(new = (t_link*)malloc(sizeof(t_link))))
         exit(0);
     ft_bzero(new, sizeof(t_link));
-	new->adr = adr_room;
+	new->adr = *adr_room;
 	new->name = room;
+	printf("Cest la pute link qui bug\n");
 	if (link == NULL || *link == NULL)
+	{
+		printf("RENTRE ICI BATARD\n");
 		*link = new;
+	}
 	else
 	{
+		printf("Cest la pute link qui bug\n");
 		while (current->next != NULL)
             current = current->next;
         current->next = new;
 	}
 }
 
-void	btree_search_data(t_btree *groot, char *find, char *room, int (*ft_strcmp)(const char *, const char *))
+void	btree_search_data(t_btree *start, t_btree *groot, char *find, char *room)
 {
-	static t_btree *start = groot;
 	t_btree *branch;
-	int i = 0;
+	static int i = 0;
 
 	if (groot == NULL)
 		return ;
 	if (ft_strcmp(groot->name, find) > 0)
-		return (btree_search_data(groot->left, find, room, ft_strcmp));
+		return (btree_search_data(start, groot->left, find, room));
 	else if (ft_strcmp(groot->name, find) < 0)
-		return (btree_search_data(groot->right, find, room, ft_strcmp));
+		return (btree_search_data(start, groot->right, find, room));
 	else
 	{
 		if (i == 0)
 		{
 			branch = groot;
 			i = 1;
-			return (btree_search_data(start, room, find, ft_strcmp));
+			printf("Comme en 14\n");
+			return (btree_search_data(start, start, room, find));
 		}
 		else
 		{
-			put_link(branch, groot, &branch->link, room);
-			put_link(groot, branch, &groot->link, find);
+			put_link(&groot, &branch->link, find);
+			put_link(&branch, &groot->link, room);
 		}
 	}
 }
 
 void	btree_add_link(t_btree *groot, t_info *info)
 {
-	btree_search_data(groot, info->parse->f_room, info->parse->s_room, &ft_strcmp);
+	printf("Bonjour, je suis une liste chainé ET JE SUCE DES GROSSE BITES BATARDS\n");
+	btree_search_data(groot, groot, info->parse->f_room, info->parse->s_room);
 }
 
 void	get_info_link(t_parse *parse, char *line)
