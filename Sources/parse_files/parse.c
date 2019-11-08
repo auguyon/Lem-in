@@ -6,7 +6,7 @@
 /*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/11/08 19:38:28 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/11/08 20:18:02 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,45 +143,58 @@ t_btree *add_room(t_btree *groot, t_info *info, char *line, short *code)
 	return (groot);
 }
 
-void	put_link(t_btree *groot, t_link **link, char *name)
+void	put_link(t_btree *branch, t_btree *adr_room, t_link **link, char *room)
 {
     t_link  *new;
     t_link  *current;
 
-    current = *link;
-    if (!(new = (t_link*)malloc(sizeof(t_link))))
+	current = *link;
+	if (!(new = (t_link*)malloc(sizeof(t_link))))
         exit(0);
     ft_bzero(new, sizeof(t_link));
-    new->adr = groot;
-    new->name = name;
-    if (current)
+	new->adr = adr_room;
+	new->name = room;
+	if (link == NULL || *link == NULL)
+		*link = new;
+	else
 	{
 		while (current->next != NULL)
-			current = current->next;
-		current->next = new;
+            current = current->next;
+        current->next = new;
 	}
-	else
-		current = new;
 }
 
 void	btree_search_data(t_btree *groot, char *find, char *room, int (*ft_strcmp)(const char *, const char *))
 {
+	static t_btree *start = groot;
+	t_btree *branch;
 	int i = 0;
 
 	if (groot == NULL)
 		return ;
 	if (ft_strcmp(groot->name, find) > 0)
 		return (btree_search_data(groot->left, find, room, ft_strcmp));
-	else if ((i = ft_strcmp(groot->name, find)) < 0)
+	else if (ft_strcmp(groot->name, find) < 0)
 		return (btree_search_data(groot->right, find, room, ft_strcmp));
-	put_link(groot, &groot->link, room);
+	else
+	{
+		if (i == 0)
+		{
+			branch = groot;
+			i = 1;
+			return (btree_search_data(start, room, find, ft_strcmp));
+		}
+		else
+		{
+			put_link(branch, groot, &branch->link, room);
+			put_link(groot, branch, &groot->link, find);
+		}
+	}
 }
 
 void	btree_add_link(t_btree *groot, t_info *info)
 {
-	printf("PUTEPUTEPUTE\n");
 	btree_search_data(groot, info->parse->f_room, info->parse->s_room, &ft_strcmp);
-	btree_search_data(groot, info->parse->s_room, info->parse->f_room, &ft_strcmp);
 }
 
 void	get_info_link(t_parse *parse, char *line)
