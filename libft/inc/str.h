@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auguyon <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:52:50 by auguyon           #+#    #+#             */
-/*   Updated: 2019/07/22 19:52:52 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/11/08 16:50:45 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ size_t	ft_strspn(const char *s, const char *c);
 char	*ft_strstr(const char *str, const char *srh);
 char	*ft_strsub(char const *s, unsigned int start, size_t len);
 char	*ft_strtrim(char const *s);
-size_t	ft_strclen(const char *restrict str, const char c);
-char	*ft_strcdup(const char *str, const char c);
+size_t	ft_strclen(const char *restrict str, char c);
 
 #endif

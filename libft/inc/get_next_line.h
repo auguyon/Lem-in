@@ -6,26 +6,29 @@
 /*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 14:15:27 by auguyon           #+#    #+#             */
-/*   Updated: 2019/10/04 19:10:24 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/11/08 12:31:52 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
+# define BUFF_SIZE 1
+# define EOL '\n'
+
+# include "libft.h"
+# include <sys/types.h>
+# include <sys/uio.h>
 # include <unistd.h>
+# include <string.h>
 # include <stdlib.h>
-# include <fcntl.h>
-# include "str.h"
 
-# define BUFF_SIZE 512
-
-typedef struct		s_gnl
+typedef struct			s_liste
 {
-	char			*tab;
-	int				fd;
-	struct s_gnl	*next;
-}					t_gnl;
+	int					fd;
+	char				*buftemp;
+	struct s_liste		*next;
+}						t_liste;
 
 int					get_next_line(const int fd, char **line);
 

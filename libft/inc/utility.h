@@ -19,6 +19,5 @@ int		ft_isdigit(char c);
 int		ft_max(int a, int b);
 int		ft_min(int a, int b);
 int		ft_abs(int x);
-int		ft_countc(const char *str, const char c);
 
 #endif

@@ -6,93 +6,163 @@
 /*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 20:44:12 by auguyon           #+#    #+#             */
-/*   Updated: 2019/09/18 15:32:13 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/11/08 12:32:23 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static void		fill_line(t_gnl *tmp, char **line)
+static int		ft_cnt_len(char const *str, int i)
 {
-	char *temp;
-	char *i;
+	int		cnt;
 
-	if ((i = ft_strchr(tmp->tab, '\n')))
-	{
-		temp = tmp->tab;
-		*line = ft_strsub(temp, 0, i - temp);
-		tmp->tab = ft_strdup(i + 1);
-		free(temp);
-	}
-	else
-	{
-		*line = ft_strdup(tmp->tab);
-		ft_strclr(tmp->tab);
-	}
+	cnt = i;
+	if (str[cnt] == '\0')
+		return (1);
+	while (str[cnt] != '\0')
+		cnt++;
+	return (cnt - i);
 }
 
-static int		read_fd(const int fd, t_gnl *tmp)
+char			**ft_rest_after_first_c(char **tab, char const *s, int i)
 {
-	int		ret;
-	char	buf[BUFF_SIZE + 1];
-	char	*temp;
+	int j;
+	int k;
 
-	ret = 1;
-	if (tmp->tab == NULL)
+	j = 1;
+	k = 0;
+	if (!(tab[j] = ft_memalloc(ft_cnt_len(s, i))))
+		return (NULL);
+	if (s[i] != '\0')
 	{
-		ret = read(fd, buf, BUFF_SIZE);
-		buf[ret] = '\0';
-		tmp->tab = ft_strdup(buf);
+		i++;
+		while (s[i] != '\0')
+			tab[j][k++] = s[i++];
 	}
-	while (!ft_strchr(tmp->tab, '\n') && ret >= 0)
-	{
-		ret = read(fd, buf, BUFF_SIZE);
-		buf[ret] = '\0';
-		temp = tmp->tab;
-		if (!(tmp->tab = ft_strjoin(tmp->tab, buf)))
-			return (-1);
-		free(temp);
-		if (ret == 0)
-			return (0);
-	}
-	return (1);
+	tab[j][k] = '\0';
+	return (tab);
 }
 
-static t_gnl	*check_node(t_gnl **lst, int fd)
+char			**ft_strsplit_at_first_c(char const *s, char c)
 {
-	t_gnl *new;
-	t_gnl *node;
+	int		i;
+	int		j;
+	int		k;
+	char	**tab;
 
-	node = *lst;
-	while (node)
+	i = 0;
+	j = 0;
+	k = 0;
+	if (!s || !(tab = (char**)malloc(sizeof(char*) * 2)))
+		return (NULL);
+	while (s[i] && s[i] != c)
+		i++;
+	if (!(tab[j] = ft_memalloc(i + 1)))
+		return (NULL);
+	i = 0;
+	while (s[i] && s[i] != c)
 	{
-		if (node->fd == fd)
-			return (node);
-		node = node->next;
+		tab[j][k] = s[i];
+		k++;
+		i++;
 	}
-	if (!(new = (t_gnl*)malloc(sizeof(t_gnl))))
+	tab[j][k] = '\0';
+	tab = ft_rest_after_first_c(tab, s, i);
+	return (tab);
+}
+
+t_liste		*gestion_list(t_liste *tmp, int fd, t_liste **list)
+{
+	t_liste				*new;
+
+	while (tmp)
+	{
+		if (tmp->fd == fd)
+			return (tmp);
+		if (tmp->next == NULL)
+			break ;
+		tmp = tmp->next;
+	}
+	if (!(new = (t_liste *)malloc(sizeof(t_liste))))
 		return (NULL);
 	new->fd = fd;
-	new->tab = NULL;
-	new->next = *lst;
-	*lst = new;
+	new->buftemp = ft_strnew(0);
+	new->next = NULL;
+	if (tmp)
+		tmp->next = new;
+	else
+		*list = new;
 	return (new);
 }
 
-int				get_next_line(const int fd, char **line)
+int			ft_read(char **str, int fd)
 {
-	static t_gnl	*lst = NULL;
-	t_gnl			*tmp;
-	int				ret;
+	int					i;
+	char				*linetmp;
+	char				*buf;
 
-	if (fd < 0 || line == NULL || read(fd, 0, 0))
+	if (!(buf = (char*)malloc(sizeof(char*) * (BUFF_SIZE + 1))))
 		return (-1);
-	if (!(tmp = check_node(&lst, fd)))
+	while ((ft_strchr(*str, '\n')) == NULL)
+	{
+		if ((i = read(fd, buf, BUFF_SIZE)) < 0)
+			return (-1);
+		buf[i] = '\0';
+		linetmp = *str;
+		*str = ft_strjoin(*str, buf);
+		free(linetmp);
+		if (i == 0)
+			break ;
+	}
+	free(buf);
+	return (i);
+}
+
+void		ft_end_of_file(t_liste *tmp, t_liste **list)
+{
+	t_liste		*tmp2;
+
+	if (tmp == *list)
+	{
+		*list = (*list)->next;
+		free(tmp->buftemp);
+		free(tmp);
+	}
+	else
+	{
+		tmp2 = *list;
+		while (tmp2->next != tmp)
+			tmp2 = tmp2->next;
+		tmp2->next = tmp->next;
+		free(tmp->buftemp);
+		free(tmp);
+	}
+	return ;
+}
+
+int			get_next_line(const int fd, char **line)
+{
+	static t_liste		*list;
+	t_liste				*tmp;
+	int					i;
+	char				*str;
+	char				**tab;
+
+	if (fd == 1 || !line)
 		return (-1);
-	if ((ret = read_fd(fd, tmp)) < 0)
+	tmp = list;
+	tmp = gestion_list(tmp, fd, &list);
+	str = ft_strdup(tmp->buftemp);
+	if ((i = ft_read(&str, fd)) < 0)
 		return (-1);
-	fill_line(tmp, line);
-	if (ft_strlen(tmp->tab) == 0 && ret == 0 && ft_strlen(*line) == 0)
-		return (0);
-	return (1);
+	tab = ft_strsplit_at_first_c(str, EOL);
+	free(str);
+	*line = tab[0];
+	if (tmp->buftemp)
+		free(tmp->buftemp);
+	tmp->buftemp = tab[1];
+	free(tab);
+	if (i == 0 && *line[0] == '\0')
+		ft_end_of_file(tmp, &list);
+	return ((i == 0 && *line[0] == '\0') ? 0 : 1);
 }
