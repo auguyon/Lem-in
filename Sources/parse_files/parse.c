@@ -6,25 +6,25 @@
 /*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/11/08 21:41:51 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/11/08 22:05:41 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/lemin.h"
 
-int height(t_btree *n) 
-{ 
-	if (n == NULL) 
-		return (0); 
-	return (n->height); 
-} 
+int height(t_btree *n)
+{
+	if (n == NULL)
+		return (0);
+	return (n->height);
+}
 
-int get_balance(t_btree *n) 
-{ 
-	if (n == NULL) 
-		return (0); 
-	return (height(n->left) - height(n->right)); 
-} 
+int get_balance(t_btree *n)
+{
+	if (n == NULL)
+		return (0);
+	return (height(n->left) - height(n->right));
+}
 
 t_btree *btree_new(t_info *info, short *code)
 {
@@ -46,8 +46,8 @@ t_btree *btree_new(t_info *info, short *code)
     return (new);
 }
 
-t_btree *right_rotate(t_btree *t) 
-{ 
+t_btree *right_rotate(t_btree *t)
+{
     t_btree *tmp_l;
 	t_btree *tmp;
 
@@ -56,12 +56,12 @@ t_btree *right_rotate(t_btree *t)
     tmp_l->right = t;
     t->left = tmp;
     t->height = ft_max(height(t->left), height(t->right)) + 1;
-    tmp_l->height = ft_max(height(tmp_l->left), height(tmp_l->right)) + 1; 
+    tmp_l->height = ft_max(height(tmp_l->left), height(tmp_l->right)) + 1;
 	return (tmp_l);
-} 
+}
 
-t_btree *left_rotate(t_btree *t) 
-{ 
+t_btree *left_rotate(t_btree *t)
+{
 	t_btree *tmp_r;
 	t_btree *tmp;
 
@@ -70,8 +70,8 @@ t_btree *left_rotate(t_btree *t)
     tmp_r->left = t;
     t->right = tmp;
     t->height = ft_max(height(t->left), height(t->right)) + 1;
-    tmp_r->height = ft_max(height(tmp_r->left), height(tmp_r->right)) + 1; 
-	return (tmp_r); 
+    tmp_r->height = ft_max(height(tmp_r->left), height(tmp_r->right)) + 1;
+	return (tmp_r);
 }
 
 t_btree *btree_rotate(t_btree *t, char *name)
@@ -85,9 +85,9 @@ t_btree *btree_rotate(t_btree *t, char *name)
 		return (left_rotate(t));
 	else if (balance > 1 && ft_strcmp(t->left->name, name) < 0)
     {
-		t->left = left_rotate(t->left); 
+		t->left = left_rotate(t->left);
 		return (right_rotate(t));
-	} 
+	}
 	else if (balance < -1 && ft_strcmp(t->right->name, name) > 0)
 	{
 		t->right = right_rotate(t->right);
@@ -147,27 +147,16 @@ void	put_link(t_btree **adr_room, t_link **link, char *room)
     t_link  *new;
     t_link  *current;
 
-	printf("Cest la pute link qui bug\n");
-	if (*link)
-	{
-		printf("Cul rent\n");
-		current = *link;
-	}
-	printf("Cest la pute link qui bug\n");
+	current = *link;
 	if (!(new = (t_link*)malloc(sizeof(t_link))))
         exit(0);
     ft_bzero(new, sizeof(t_link));
 	new->adr = *adr_room;
 	new->name = room;
-	printf("Cest la pute link qui bug\n");
 	if (link == NULL || *link == NULL)
-	{
-		printf("RENTRE ICI BATARD\n");
 		*link = new;
-	}
 	else
 	{
-		printf("Cest la pute link qui bug\n");
 		while (current->next != NULL)
             current = current->next;
         current->next = new;
@@ -176,8 +165,8 @@ void	put_link(t_btree **adr_room, t_link **link, char *room)
 
 void	btree_search_data(t_btree *start, t_btree *groot, char *find, char *room)
 {
-	t_btree *branch;
-	static int i = 0;
+	static t_btree *branch;
+	static short i = 0;
 
 	if (groot == NULL)
 		return ;
@@ -191,20 +180,18 @@ void	btree_search_data(t_btree *start, t_btree *groot, char *find, char *room)
 		{
 			branch = groot;
 			i = 1;
-			printf("Comme en 14\n");
 			return (btree_search_data(start, start, room, find));
 		}
 		else
 		{
-			put_link(&groot, &branch->link, find);
-			put_link(&branch, &groot->link, room);
+			put_link(&branch, &branch->link, find);
+			put_link(&groot, &groot->link, room);
 		}
 	}
 }
 
 void	btree_add_link(t_btree *groot, t_info *info)
 {
-	printf("Bonjour, je suis une liste chainé ET JE SUCE DES GROSSE BITES BATARDS\n");
 	btree_search_data(groot, groot, info->parse->f_room, info->parse->s_room);
 }
 
@@ -273,7 +260,6 @@ void	btree_apply_prefix_lr(t_btree *root, void (*applyf)(void *))
 	{
 		if (root->name)
 		{
-			printf("%s\t", root->link->name);
 			applyf(root->name);
 		}
 		if (root->left)
@@ -304,6 +290,20 @@ void	btree_apply_postfix_lr(t_btree *root, void (*applyf)(void *))
 	}
 }
 
+void	print_list(t_link *l)
+{
+	t_btree *t;
+
+	while (l->next != NULL)
+	{
+		t = l->adr;
+		printf("list ->%s lien->%s\n", l->name, t->name);
+		l = l->next;
+	}
+	t = l->adr;
+	printf("list ->%s lien->%s\n", l->name, t->name);
+}
+
 int 	main(void)
 {
 	t_info	*info;
@@ -318,5 +318,6 @@ int 	main(void)
 	groot = parse(info, NULL, 0, 0);
 	printf("---print---\n");
 	btree_apply_prefix_lr(groot, &print_btree);
+	print_list(groot->right->right->link);
 	return (1);
 }
