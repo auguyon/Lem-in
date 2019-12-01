@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Aurelien <Aurelien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:49:39 by auguyon           #+#    #+#             */
-/*   Updated: 2019/11/12 20:08:39 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/11/19 18:07:36 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct      s_btree
     int             height;
 	int				x;
 	int				y;
+    int             nb;
 }                   t_btree;
 
 typedef struct 		s_parse
@@ -51,6 +52,18 @@ typedef	struct		s_info
 	unsigned int	ants;
 	unsigned int	best_move;
 }					t_info;
+
+typedef struct s_data
+{
+    int         *nbr;
+    int         **tab;
+    int         *x;
+    int         *y;
+    char        **name;
+    int         ants;
+    int         nb_rooms;
+    int         best_move;
+}               t_data;
 
 void				get_info_link(t_parse *parse, char *line);
 void				btree_add_data(t_btree *start, t_btree *groot, char *find, char *room);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Aurelien <Aurelien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/11/12 22:50:38 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/11/19 15:54:40 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,14 @@ static void	exit_error(t_info *info, t_btree *groot, short error)
 	btree_apply_postfix(groot);
 	free(info->parse);
 	free(info);
-	while (1);
+	// while (1);
 	exit (0);
 }
 
 void		check_error(t_info *info, t_btree *groot, short error)
 {
-	// if ((error <= -1 && error >= -3) || (error <= -6 && error >= -8))
+	if ((error <= -1 && error >= -3) || (error <= -6 && error >= -8))
 		exit_error(info, groot, error);
-	// else if (!info->adr_start || !info->adr_end)
-	// 	exit_error(info, groot, line, -7);
+	else if (!info->adr_start || !info->adr_end)
+		exit_error(info, groot, -7);
 }
