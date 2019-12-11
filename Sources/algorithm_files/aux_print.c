@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   aux_print.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 12:07:26 by ftrujill          #+#    #+#             */
-/*   Updated: 2019/12/05 17:48:07 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/12/11 22:20:23 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/lemin.h"
 
-void    prt_g(t_data *dt)
+void    prt_g(int **g, int size)
 {
     int i;
     int j;
 
     ft_printf("Printing graph\n\n");
     i = 0;
-    while (i < dt->nb_rooms)
+    while (i < size)
     {
         j = 0;
-        while (dt->tab[i][j] != -1)
-            ft_printf("%d ", dt->tab[i][j++]);
+        while (g[i][j] != -1)
+            ft_printf("%d ", g[i][j++]);
         i++;
         ft_printf("\n");
     }
@@ -48,7 +48,8 @@ void        prt_layer(t_layer *layer)
 {
     int     i = 0;
     t_path  *path;
-    ft_printf("\nSize %d, nbr of paths %d, sol_depth %d, min_depth %d\n", layer->size, layer->nbr_paths, layer->sol_depth, layer->min_depth);
+    ft_printf("\nSize %d, nbr of paths %d, sol_depth %d, min_depth %d\n",
+        layer->size, layer->nbr_paths, layer->sol_depth, layer->min_depth);
     while (i < layer->nbr_paths)
         prt_path(&(layer->paths[i++]));    
 }
@@ -57,7 +58,8 @@ void    prt_solution(t_solution *solution)
 {
     int i;
 
-    ft_printf("\nThe size is %d, nbr_paths %d, max_length %d\n", solution->size, solution->nbr_paths, solution->max_length);
+    ft_printf("\nThe size is %d, nbr_paths %d, max_length %d\n",
+        solution->size, solution->nbr_paths, solution->max_length);
     i = 0;
     while (i < solution->nbr_paths)
         prt_path(&solution->paths[i++]);
@@ -65,7 +67,8 @@ void    prt_solution(t_solution *solution)
     while (i < solution->size)
     {
         if (solution->used_vertices[i][0])
-            ft_printf("\nThe vertex %d is used by the path %d at position %d\n", i, solution->used_vertices[i][1], solution->used_vertices[i][2]);
+            ft_printf("\nVertex %d is used by the path %d at position %d\n", i,
+                solution->used_vertices[i][1], solution->used_vertices[i][2]);
         i++;
     }
 }

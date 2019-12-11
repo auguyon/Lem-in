@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   btree_to_data.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/11 19:07:59 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/12/12 00:09:14 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void		fill_data(t_btree *groot, t_data *dt)
 {
 	t_btree		*branch;
 	t_link		*link;
+
 
 	dt->nbr[groot->nb] = 0;
 	link = groot->link;
@@ -83,6 +84,7 @@ void			btree_to_data(t_btree *groot, t_info *info, t_data *dt)
 
 	i = 1;
 	dt->nb_rooms = info->rooms;
+	dt->ants = info->ants;
 	info->adr_start->nb = 0;
 	info->adr_end->nb = info->rooms - 1;
 	btree_prefix_count(groot, info, &i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:49:39 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/11 18:39:00 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/12/12 00:00:45 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ typedef struct      s_solution
 /*
 ** Initialization
 */
-void                initialize(t_layer **l, int size);
+void                initialize(t_layer *layer, int size);
 void		        init_struct_parse(t_data **dt, t_info **i);
 void		        init_struct_algo(t_solution **s, t_path ***p, int size);
 /*
@@ -116,7 +116,7 @@ void			    print_error(short error);
 /*
 ** Printing
 */
-void                prt_g(t_data *dt);
+void                prt_g(int **g, int size);
 void                prt_path(t_path *path);
 void                prt_layer(t_layer *layer);
 void                prt_solution(t_solution *solution);
@@ -129,6 +129,7 @@ void                copy_solution(t_layer *new_layer, t_path *path);
 /*
 ** Algorithm
 */ 
+int                 solver(t_data *dt);
 void                initialize_new_layer(t_layer *new_layer, t_layer *layer, int *ngbs);
 int                 mbfs(t_data *dt, t_solution *solution, t_layer *layer, t_path **possible);
 void                find_solution(t_path **possible, int n, int *nbr_steps, int *sol);

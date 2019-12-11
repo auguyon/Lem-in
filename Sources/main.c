@@ -3,40 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/11 19:13:11 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/12/11 23:59:28 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/lemin.h"
-
-void		solver(t_data *dt)
-{
-	t_layer		*layer;
-    t_solution	*solution;
-    t_path		**possible;
-	int			nbr_steps;
-	int			sol;
-
-    printf("Debut de solver\n");
-    init_struct_algo(&solution, &possible, dt->nb_rooms);
-    initialize(&layer, dt->nb_rooms);
-    printf("Prt_G\n");
-    prt_g(dt);
-    printf("mbfs\n");
-    while (mbfs(dt, solution, layer, possible))
-    {
-    }
-    printf("prt_possible\n");
-    prt_possible(possible);
-    printf("find solution\n");
-    find_solution(possible, dt->ants, &nbr_steps, &sol);
-    ft_printf("\nAnd the right solution with %d ants is the one with %d path(s) and it takes %d step(s)\n\n", dt->ants, sol + 1, nbr_steps);
-	prt_steps(possible, dt->ants, nbr_steps, sol);
-
-}
 
 void	print_list(t_link *l)
 {
