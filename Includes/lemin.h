@@ -6,7 +6,7 @@
 /*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:49:39 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/05 22:49:59 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/12/11 04:10:09 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define LEMIN_H
 
 # include "../libft/inc/libft.h"
-# include "../libft/ft_printf/includes/ft_printf.h"
 
 #include <stdio.h>
 
@@ -98,15 +97,21 @@ void		        init_struct_algo(t_solution **s, t_path ***p, int size);
 /*
 ** Parsing
 */
-t_btree 	        *parse_room(t_info *in, short code);
-int		            check_error_room(t_btree *groot, char *line)
+t_btree		        *parse_room(t_info *in, short code);
+int		            check_error_room(t_btree *groot, t_info *in, int y);
+int	                btree_search_name(t_btree *groot, int *j, char *find);
+int	                btree_search_pos(t_btree *groot, int *j, int x, int y);
 t_btree 	        *add_room(t_btree *groot, t_info *in, short *code);
+t_btree			    *btree_rotate(t_btree *t, char *name);
+int				    height(t_btree *n);
 void		        parse_link(t_info *in, t_btree *groot);
 int		            check_error_link(t_btree *groot, t_info *info);
 void	            btree_add_link(t_btree *start, t_btree *groot, char *find, char *room);
 void	            btree_to_data(t_btree *groot, t_info *info, t_data *dt);
 void	            fill_to_neg(int *t, int count);
-
+void		        check_error(t_info *in, t_btree *groot);
+void		        free_btree_n_info(t_info *info, t_btree *groot);
+void			    print_error(short error);
 /*
 ** Printing
 */

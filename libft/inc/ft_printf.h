@@ -12,26 +12,27 @@
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
+
 # include "libft.h"
 # include <stdarg.h>
 
 typedef struct	s_arg
 {
-	char	flag_hash;
-	char	flag_zero;
-	char	flag_minus;
-	char	flag_space;
-	char	flag_plus;
-	ssize_t	width;
-	ssize_t	prec;
-	char	len_mod[3];
-	char	conv;
+	char		flag_hash;
+	char		flag_zero;
+	char		flag_minus;
+	char		flag_space;
+	char		flag_plus;
+	ssize_t		width;
+	ssize_t		prec;
+	char		len_mod[3];
+	char		conv;
 }				t_arg;
 
 typedef struct	s_conv
 {
-	char	conv;
-	int		(*f)(t_arg arg, va_list *ap);
+	char		conv;
+	int			(*f)(t_arg arg, va_list *ap);
 }				t_conv;
 
 /*

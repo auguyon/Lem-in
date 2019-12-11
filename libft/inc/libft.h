@@ -20,5 +20,6 @@
 # include "toa.h"
 # include "utility.h"
 # include "get_next_line.h"
+# include "ft_printf.h"
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/05 22:34:31 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/12/10 23:12:13 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/lemin.h"
 
-static void	print_error(short error)
+void			print_error(short error)
 {
 	write(1, "\033[31mError:\n", 13);
 	if (error == -1)
@@ -32,11 +32,13 @@ static void	print_error(short error)
 	else if (error == -8)
 		write(1, "\tName's room already used.\n", 27);
 	else if (error == -9)
+		write(1, "\tX or Y already used.\n", 22);
+	else if (error == -10)
 		write(1, "\tNo path found.\n", 16);
 	write(1, "\033[0m", 4);
 }
 
-void		free_btree_n_link(t_btree *groot)
+static void		free_btree_n_link(t_btree *groot)
 {
 	t_link	*tmp;
 
@@ -55,7 +57,7 @@ void		free_btree_n_link(t_btree *groot)
 	free(groot);
 }
 
-void		btree_apply_postfix(t_btree *root)
+static void		btree_apply_postfix(t_btree *root)
 {
 	if (root)
 	{
@@ -68,23 +70,8 @@ void		btree_apply_postfix(t_btree *root)
 	}
 }
 
-void		free_btree_n_info(t_info *info, t_btree *groot)
+void			free_btree_n_info(t_info *info, t_btree *groot)
 {
 	btree_apply_postfix(groot);
 	free(info);
-	exit(0);
-}
-
-void		check_error(t_info *info, t_btree *groot, short error)
-{
-	if ((error <= -1 && error >= -3) || (error <= -6 && error >= -8))
-	{
-		print_error(error);
-		free_btree_n_info(info, groot);
-	}
-	else if (!info->adr_start || !info->adr_end)
-	{
-		print_error(-7);
-		free_btree_n_info(info, groot);
-	}
 }

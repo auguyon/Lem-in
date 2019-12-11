@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "conversions.h"
+#include "../inc/ft_printf_2.h"
 
 int		conv_pos(char c)
 {

@@ -6,7 +6,7 @@
 /*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/05 22:31:21 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/12/11 02:50:19 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,12 @@ t_btree		*parse_room(t_info *in, short code)
 	t_btree	*groot;
 
 	groot = NULL;
+	in->error = 0;
 	while (get_next_line(0, &in->line))
 	{
+		printf("in->error %d\n", in->error);
 		if (in->error == 1 && in->line[0] != '#' && in->line[1] != '#')
-			if ((in->error = check_error_room(groot, in->line)) == 2)
+			if ((in->error = check_error_room(groot, in, 0)) == 2)
 				break ;
 		if (in->ants == 0)
 			in->ants = get_ants(in);
@@ -87,46 +89,3 @@ t_btree		*parse_room(t_info *in, short code)
 	return (groot);
 }
 
-// void	print_list(t_link *l)
-// {
-// 	while (l->next != NULL)
-// 	{
-// 		printf("Name link->%s name adr->%s\n", l->name, l->adr->name);
-// 		l = l->next;
-// 	}
-// 	printf("Name link->%s name adr->%s\n", l->name, l->adr->name);
-// }
-
-// void	print_btree(void *n)
-// {
-// 	t_btree *t;
-
-// 	t = (t_btree*)n;
-// 	write(1, "\nBranch-> ", 9);
-// 	write(1, t->name, ft_strlen(t->name));
-// 	write(1, "\n", 1);
-// 	print_list(t->link);
-// }
-
-// void	btree_apply_prefix_lr(t_btree *root, void (*applyf)(void *))
-// {
-// 	if (root && applyf)
-// 	{
-// 		if (root)
-// 		{
-// 			applyf(root);
-// 		}
-// 		if (root->left)
-// 		{
-// 			write(1, "DOWN LEFT\n", 10);
-// 			btree_apply_prefix_lr(root->left, applyf);
-// 			write(1, "UP LEFT\n", 8);
-// 		}
-// 		if (root->right)
-// 		{
-// 			write(1, "DOWN RIGHT\n", 11);
-// 			btree_apply_prefix_lr(root->right, applyf);
-// 			write(1, "UP RIGHT\n", 9);
-// 		}
-// 	}
-// }

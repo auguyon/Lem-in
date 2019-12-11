@@ -6,7 +6,7 @@
 /*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 19:53:05 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/05 22:41:55 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/12/09 18:32:14 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ int		ft_min(int a, int b);
 int		ft_abs(int x);
 int     ft_count_c(const char *line, char c);
 void    ft_fill_nb(int *t, int nb, int size);
+void    ft_malloc_error();
 
 #endif

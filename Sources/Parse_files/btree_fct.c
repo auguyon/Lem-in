@@ -6,32 +6,46 @@
 /*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/11/12 22:50:38 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/12/11 04:13:30 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/lemin.h"
 
-void	btree_apply_postfix_lr(t_btree *root, void (*applyf)(t_btree *))
+int		btree_search_name(t_btree *groot, int *j, char *find)
 {
-	if (root && applyf)
+	if (groot)
 	{
-		if (root->left)
-			btree_apply_postfix_lr(root->left, applyf);
-		if (root->right)
-			btree_apply_postfix_lr(root->right, applyf);
-		if (root)
-			applyf(root);
+		if (groot->left)
+			btree_search_name(groot->left, j, find);
+		if (groot)
+			if (ft_strcmp(groot->name, find) == 0) // printf("{%s} && {%s}\n", groot->name, find) && 
+				*(j) = 1;
+		if (groot->right)
+			btree_search_name(groot->right, j, find);
 	}
+	return (1);
 }
 
-t_btree	*btree_search(t_btree *groot, char *find)
+static int	cmp_int(int cmp_a, int cmp_b, int a, int b)
 {
-	if (groot == NULL)
-		return (NULL);
-	if (ft_strcmp(groot->name, find) > 0)
-		return (btree_search(groot->left, find));
-	else if (ft_strcmp(groot->name, find) < 0)
-		return (btree_search(groot->right, find));
-	return (groot);
+	// printf("Groot x{%d} ->{%d} && y{%d} ->{%d}\n", cmp_a, a, cmp_b, b);
+	if (cmp_a == a || cmp_b == b)
+		return (0);
+	return (1);
+}
+
+int		btree_search_pos(t_btree *groot, int *j, int x, int y)
+{
+	if (groot)
+	{
+		if (groot->left)
+			btree_search_pos(groot->left, j, x, y);
+		if (groot)
+			if (!(cmp_int(groot->x, groot->y, x, y)))
+				*(j) = 1;
+		if (groot->right)
+			btree_search_pos(groot->right, j, x, y);
+	}
+	return (1);
 }

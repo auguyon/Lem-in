@@ -6,7 +6,7 @@
 /*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/05 22:42:40 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/12/10 19:43:59 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ static void		fill_data(t_btree *groot, t_data *dt)
 	dt->nbr[groot->nb] = 0;
 	link = groot->link;
 	branch = link->adr;
-	dt->x[groot->nb] = groot->x;
-	dt->y[groot->nb] = groot->y;
-	dt->name[groot->nb] = ft_strdup(groot->name);
 	while (link)
 	{
 		dt->tab[groot->nb][dt->nbr[groot->nb]] = branch->nb;
@@ -50,21 +47,20 @@ static void		btree_prefix_data(t_btree *g, t_data *dt)
 {
 	if (g)
 	{
-		if (g)
-		{
-			count_link(g, &dt->nbr[g->nb]);
-			if (!(dt->tab[g->nb] = (int*)malloc(sizeof(int)
-				* dt->nbr[g->nb] + 1)))
-				exit(0);
-			fill_to_neg(dt->tab[g->nb], dt->nbr[g->nb] + 1);
-			if (dt->nbr[g->nb])
-				fill_data(g, dt);
-		}
-		if (g->left)
-			btree_prefix_data(g->left, dt);
-		if (g->right)
-			btree_prefix_data(g->right, dt);
+		count_link(g, &dt->nbr[g->nb]);
+		if (!(dt->tab[g->nb] = (int*)malloc(sizeof(int) * dt->nbr[g->nb] + 1)))
+			ft_malloc_error();
+		ft_fill_nb(dt->tab[g->nb], -1, dt->nbr[g->nb] + 1);
+		dt->x[g->nb] = g->x;
+		dt->y[g->nb] = g->y;
+		dt->name[g->nb] = ft_strdup(g->name);
+		if (dt->nbr[g->nb])
+			fill_data(g, dt);
 	}
+	if (g->left)
+		btree_prefix_data(g->left, dt);
+	if (g->right)
+		btree_prefix_data(g->right, dt);
 }
 
 static void		btree_prefix_count(t_btree *root, int *count)
@@ -84,16 +80,19 @@ void			btree_to_data(t_btree *groot, t_info *info, t_data *dt)
 {
 	btree_prefix_count(groot, &dt->nb_rooms);
 	if (!(dt->tab = (int**)malloc(sizeof(int*) * dt->nb_rooms + 1)))
-		exit(0);
+		ft_malloc_error();
+	ft_bzero(dt->tab, sizeof(int*) * dt->nb_rooms + 1);
 	if (!(dt->name = (char**)malloc(sizeof(char*) * dt->nb_rooms + 1)))
-		exit(0);
+		ft_malloc_error();
+	ft_bzero(dt->name, sizeof(char*) * dt->nb_rooms + 1);
 	if (!(dt->x = (int*)malloc(sizeof(int) * dt->nb_rooms + 1)))
-		exit(0);
+		ft_malloc_error();
 	ft_fill_nb(dt->x, -1, dt->nb_rooms + 1);
 	if (!(dt->y = (int*)malloc(sizeof(int) * dt->nb_rooms + 1)))
-		exit(0);
+		ft_malloc_error();
 	ft_fill_nb(dt->y, -1, dt->nb_rooms + 1);
 	if (!(dt->nbr = (int*)malloc(sizeof(int) * dt->nb_rooms + 1)))
-		exit(0);
+		ft_malloc_error();
+	ft_bzero(dt->nbr, sizeof(int) * dt->nb_rooms + 1);
 	btree_prefix_data(groot, dt);
 }

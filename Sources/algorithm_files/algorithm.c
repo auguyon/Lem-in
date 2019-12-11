@@ -6,7 +6,7 @@
 /*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:39:54 by ftrujill          #+#    #+#             */
-/*   Updated: 2019/12/05 17:53:54 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/12/08 21:04:46 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_layer     *next_layer(t_data *dt, t_layer *layer, int *visited, t_solution *so
 
     updated = (int*)ft_memalloc(layer->size * sizeof(int));
     new_layer = (t_layer*)malloc(sizeof(t_layer));
-    initialize_new_layer(new_layer, layer, dt->nb_rooms);
+    initialize_new_layer(new_layer, layer, dt->nbr);
     i = -1;
     while (++i < layer->nbr_paths)
     {

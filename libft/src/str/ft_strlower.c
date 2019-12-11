@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_tab.c                                     :+:      :+:    :+:   */
+/*   ft_strlower.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/17 18:42:28 by ftrujill          #+#    #+#             */
-/*   Updated: 2018/11/17 18:44:23 by ftrujill         ###   ########.fr       */
+/*   Created: 2019/05/29 13:46:49 by ftrujill          #+#    #+#             */
+/*   Updated: 2019/05/29 13:46:55 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_print_tab(char **tab)
+char	*ft_strlower(char *str)
 {
-	if (!tab)
-		return ;
-	while (*tab)
+	int i;
+
+	if (!str)
+		return (str);
+	i = 0;
+	while (str[i])
 	{
-		ft_putstr(*tab++);
-		ft_putchar('\n');
+		if (str[i] >= 'A' && str[i] <= 'Z')
+			str[i] = str[i] + 32;
+		i++;
 	}
+	return (str);
 }

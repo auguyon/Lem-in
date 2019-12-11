@@ -6,7 +6,7 @@
 #    By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/17 17:43:49 by auguyon           #+#    #+#              #
-#    Updated: 2019/12/05 22:42:12 by auguyon          ###   ########.fr        #
+#    Updated: 2019/12/09 18:32:33 by auguyon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ VPATH			:= src
 prtdir	:= print
 prt		:= ft_putchar.c ft_putchar_fd.c ft_putendl.c ft_putendl_fd.c
 prt		+= ft_putnbr.c ft_putnbr_fd.c ft_putstr.c ft_putstr_fd.c
+prt		+= ft_putnstr.c
 prt		:= $(addprefix $(prtdir)/, $(prt))
 
 listdir	:= list
@@ -54,7 +55,7 @@ str		+= ft_strstr.c ft_strnstr.c ft_strndup.c ft_strncat.c  ft_strlen.c
 str		+= ft_strspn.c ft_strnjoin.c ft_strncpy.c ft_strmultidel.c ft_strlcat.c
 str 	+= ft_striteri.c ft_strclr.c ft_strcat.c ft_striter.c ft_strcspn.c
 str		+= ft_strequ.c ft_strcpy.c ft_strccmp.c ft_strchr.c ft_strjoin_free.c
-str		+= ft_strclen.c ft_strcdup.c
+str		+= ft_strclen.c ft_strcdup.c ft_strrev.c ft_strlower.c
 str		:= $(addprefix $(strdir)/, $(str))
 
 toadir	:= toa
@@ -69,16 +70,21 @@ toa		:= $(addprefix $(toadir)/, $(toa))
 
 utildir	:= utility
 util	:= ft_atoi.c ft_atoi_base.c ft_isdigit.c ft_min.c ft_max.c ft_abs.c
-util	+= ft_count_c.c ft_fill_nb.c
+util	+= ft_count_c.c ft_fill_nb.c ft_malloc_error.c
 util	:= $(addprefix $(utildir)/, $(util))
 
 gnldir	:= Get_Next_Line
 gnl		:= get_next_line.c
 gnl		:= $(addprefix $(gnldir)/, $(gnl))
 
+prfdir	:= ft_printf
+prf		:= aux.c aux_print.c conversions_1.c conversions_2.c conversions_3.c
+prf		+= ft_printf.c get_arg.c
+prf		:= $(addprefix $(prfdir)/, $(prf))
+
 objdir	:= obj
 ddir	:= dep
-src		:= $(ctrl) $(prt) $(toa) $(list) $(util) $(mem) $(str) $(gnl)
+src		:= $(ctrl) $(prt) $(toa) $(list) $(util) $(mem) $(str) $(gnl) $(prf)
 obj		:= $(addprefix $(objdir)/, $(src:%.c=%.o))
 dep		:= $(addprefix $(ddir)/, $(src:%.c=%.d))
 

@@ -1,39 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_putnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 21:57:52 by ftrujill          #+#    #+#             */
-/*   Updated: 2018/11/10 22:26:44 by ftrujill         ###   ########.fr       */
+/*   Created: 2018/11/10 15:16:58 by ftrujill          #+#    #+#             */
+/*   Updated: 2018/12/27 11:28:59 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
-{
-	size_t	i;
-	size_t	l;
-	char	*str;
-	char	cc;
+/*
+** Write in stdout at most n bytes of the string s
+*/
 
-	i = 0;
-	cc = c;
-	l = ft_strlen(s);
-	while (i <= l)
-	{
-		if (*s == cc)
-		{
-			str = (char*)s;
-			return (str);
-		}
-		else
-		{
-			i++;
-			s++;
-		}
-	}
-	return (NULL);
+void	ft_putnstr(char const *s, size_t n)
+{
+	if (s)
+		write(1, s, ft_min(ft_strlen(s), n));
 }

@@ -6,7 +6,7 @@
 /*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/05 22:51:51 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/12/10 19:44:40 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	put_link(t_btree **adr_room, t_link **link, char *room)
 
 	current = *link;
 	if (!(new = (t_link*)malloc(sizeof(t_link))))
-		exit(0);
+		ft_malloc_error();
 	ft_bzero(new, sizeof(t_link));
 	new->adr = *adr_room;
 	new->name = (*adr_room)->name;
@@ -51,7 +51,7 @@ void		btree_add_link(t_btree *start, t_btree *groot, char *f, char *room)
 		{
 			branch = groot;
 			i = 1;
-			return (btree_add_data(start, start, room, f));
+			return (btree_add_link(start, start, room, f));
 		}
 		else
 		{
