@@ -6,7 +6,7 @@
 /*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:49:39 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/11 04:10:09 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/12/11 18:39:00 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef	struct		s_info
     int             error;
     int    			x;
     int    			y;
+    int             rooms;
 }					t_info;
 
 typedef struct      s_data

@@ -6,7 +6,7 @@
 /*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/11 02:50:19 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/12/11 18:07:05 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ t_btree		*parse_room(t_info *in, short code)
 	in->error = 0;
 	while (get_next_line(0, &in->line))
 	{
-		printf("in->error %d\n", in->error);
 		if (in->error == 1 && in->line[0] != '#' && in->line[1] != '#')
 			if ((in->error = check_error_room(groot, in, 0)) == 2)
 				break ;

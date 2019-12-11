@@ -6,7 +6,7 @@
 /*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/10 19:43:59 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/12/11 19:07:59 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,22 +63,29 @@ static void		btree_prefix_data(t_btree *g, t_data *dt)
 		btree_prefix_data(g->right, dt);
 }
 
-static void		btree_prefix_count(t_btree *root, int *count)
+static void		btree_prefix_count(t_btree *root, t_info *info, int *nb)
 {
-	if (root)
+	if (root && root != info->adr_start && root != info->adr_end)
 	{
-		root->nb = *(count);
-		*(count) += 1;
+		root->nb = *(nb);
+		*(nb) += 1;
 	}
 	if (root->left)
-		btree_prefix_count(root->left, count);
+		btree_prefix_count(root->left, info, nb);
 	if (root->right)
-		btree_prefix_count(root->right, count);
+		btree_prefix_count(root->right, info, nb);
 }
+
 
 void			btree_to_data(t_btree *groot, t_info *info, t_data *dt)
 {
-	btree_prefix_count(groot, &dt->nb_rooms);
+	int i;
+
+	i = 1;
+	dt->nb_rooms = info->rooms;
+	info->adr_start->nb = 0;
+	info->adr_end->nb = info->rooms - 1;
+	btree_prefix_count(groot, info, &i);
 	if (!(dt->tab = (int**)malloc(sizeof(int*) * dt->nb_rooms + 1)))
 		ft_malloc_error();
 	ft_bzero(dt->tab, sizeof(int*) * dt->nb_rooms + 1);

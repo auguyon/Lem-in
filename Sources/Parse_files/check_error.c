@@ -6,7 +6,7 @@
 /*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/11 04:12:26 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/12/11 18:18:24 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ static int	check_error_room_two(t_btree *groot, char *line, int i, int y)
 		free(name);
 		return (-8);
 	}
-	btree_search_pos(groot, &j, x, y);
-	if (j == 1)
-		return (-9);
+	// btree_search_pos(groot, &j, x, y);
+	// if (j == 1)
+	// 	return (-9);
 	free(name);
 	return (1);
 }

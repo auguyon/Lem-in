@@ -6,7 +6,7 @@
 /*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/11 04:13:30 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/12/11 17:55:24 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		btree_search_name(t_btree *groot, int *j, char *find)
 static int	cmp_int(int cmp_a, int cmp_b, int a, int b)
 {
 	// printf("Groot x{%d} ->{%d} && y{%d} ->{%d}\n", cmp_a, a, cmp_b, b);
-	if (cmp_a == a || cmp_b == b)
+	if (cmp_a == a && cmp_b == b)
 		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/10 23:09:10 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/12/11 19:13:11 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int         main(int argc, char **argv)
     printf("Parser\n");
 	dt = parser();
     printf("Print result parse:\n");
-    print_truc(dt);
+    // print_truc(dt);
     printf("Solver\n");
 	solver(dt);
     return (0);

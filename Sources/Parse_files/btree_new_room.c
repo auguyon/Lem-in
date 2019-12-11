@@ -6,7 +6,7 @@
 /*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/10 19:44:33 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/12/11 18:38:49 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static t_btree	*btree_new(t_info *info, short *code)
 {
 	t_btree	*new;
 
+	info->rooms += 1;
 	if (!(new = (t_btree*)malloc(sizeof(t_btree))))
 		ft_malloc_error();
 	ft_bzero(new, sizeof(t_btree));
