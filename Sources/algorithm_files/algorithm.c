@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algorithm.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:39:54 by ftrujill          #+#    #+#             */
-/*   Updated: 2019/12/12 15:11:59 by ftrujill         ###   ########.fr       */
+/*   Updated: 2019/12/12 22:14:35 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,13 @@ int         solver_2(t_data *dt, t_layer *layer, t_solution *solution, t_path **
 
     possible[0] = NULL;
     initialize(layer, dt->nb_rooms);
-    prt_g(dt->tab, dt->nb_rooms);
+    // prt_g(dt->tab, dt->nb_rooms);
     while (mbfs(dt, solution, layer, possible))
     {
     }
     prt_possible(possible);
     find_solution(possible, dt->ants, &nbr_steps, &sol);
-    ft_printf("\nAnd the right solution with %d ants is the one with %d path(s) and it takes %d step(s)\n\n", dt->ants, sol + 1, nbr_steps);
+    ft_printf("\nAnd the right solution with %d ants is the one with %d path(s) and it takes %d step(s) demander:%d\n\n", dt->ants, sol + 1, nbr_steps, dt->best_move);
     prt_steps(possible, dt->ants, nbr_steps, sol);
     return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_sol.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 11:02:23 by ftrujill          #+#    #+#             */
-/*   Updated: 2019/12/12 11:12:51 by ftrujill         ###   ########.fr       */
+/*   Updated: 2019/12/12 22:18:08 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,12 +129,12 @@ void        prt_steps(t_path **possible, int nbr_ants, int nbr_steps, int sol)
     while (i < nbr_steps)
     {
         j = -1;
-        while(++j < f)
+        while(++j <= f)
         {
             if (j >= nbr_ants || i - ant_first[j] > possible[sol][path_nbrs[j]].depth - 2)
                 continue;
             else
-                ft_printf("L%d-%d ", j, possible[sol][path_nbrs[j]].path[i - ant_first[j] + 1]);
+                ft_printf("L%d-%d ", j + 1, possible[sol][path_nbrs[j]].path[i - ant_first[j] + 1]); // ajouter dt->name pour avoir les noms et pas les index
         }
         ft_printf("\n");
         j = -1;
