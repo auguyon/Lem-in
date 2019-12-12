@@ -6,7 +6,7 @@
 /*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 12:07:26 by ftrujill          #+#    #+#             */
-/*   Updated: 2019/12/11 22:20:23 by ftrujill         ###   ########.fr       */
+/*   Updated: 2019/12/12 14:50:04 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,24 @@ void        prt_path(t_path *path)
 
 void        prt_layer(t_layer *layer)
 {
-    int     i = 0;
+    int     i;
+
+    i = 0;
     t_path  *path;
     ft_printf("\nSize %d, nbr of paths %d, sol_depth %d, min_depth %d\n",
         layer->size, layer->nbr_paths, layer->sol_depth, layer->min_depth);
     while (i < layer->nbr_paths)
         prt_path(&(layer->paths[i++]));    
+    i = 0;
+    ft_printf("Updated\n");
+    while (i < layer->size)
+        ft_printf("%d ", layer->upd[i++]);
+    ft_printf("\n");
+    ft_printf("Visited\n");
+    i = 0;
+    while (i < layer->size)
+        ft_printf("%d ", layer->vtd[i++]);
+    ft_printf("\n");
 }
 
 void    prt_solution(t_solution *solution)

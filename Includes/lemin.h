@@ -6,7 +6,7 @@
 /*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:49:39 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/12 00:00:45 by ftrujill         ###   ########.fr       */
+/*   Updated: 2019/12/12 15:09:39 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ typedef struct      s_layer
     int             nbr_paths;
     int             sol_depth;
     int             min_depth;
+    int             *upd;
+    int             *vtd;
     t_path          *paths;
 }                   t_layer;
 
@@ -92,9 +94,7 @@ typedef struct      s_solution
 /*
 ** Initialization
 */
-void                initialize(t_layer *layer, int size);
 void		        init_struct_parse(t_data **dt, t_info **i);
-void		        init_struct_algo(t_solution **s, t_path ***p, int size);
 /*
 ** Parsing
 */
@@ -121,6 +121,7 @@ void                prt_path(t_path *path);
 void                prt_layer(t_layer *layer);
 void                prt_solution(t_solution *solution);
 void                prt_possible(t_path **possible);
+void                prt_steps(t_path **possible, int nbr_ants, int nbr_steps, int sol);
 /*
 ** Copying
 */
@@ -130,9 +131,20 @@ void                copy_solution(t_layer *new_layer, t_path *path);
 ** Algorithm
 */ 
 int                 solver(t_data *dt);
+void                initialize(t_layer *layer, int size);
 void                initialize_new_layer(t_layer *new_layer, t_layer *layer, int *ngbs);
 int                 mbfs(t_data *dt, t_solution *solution, t_layer *layer, t_path **possible);
+void                min_depth(t_layer *layer);
+void                update(t_layer *new_layer, int *visited, int *updated);
+void                next_layer(t_data *dt, t_layer **layer, t_solution *solution);
+void                update(t_layer *new_layer, int *visited, int *updated);
 void                find_solution(t_path **possible, int n, int *nbr_steps, int *sol);
-void                prt_steps(t_path **possible, int nbr_ants, int nbr_steps, int sol);
-
+void                merge_paths(t_solution *solution, int pos, int i, int p);
+void                update_solution(t_path *path, t_solution *solution, t_path **possible);
+/*
+** Free
+*/
+void                free_layer(t_layer **layer);
+void                free_new_layer(t_layer **layer, t_layer *new_layer);
+void                free_all(t_data *dt, t_layer *layer, t_solution *solution, t_path **possible);
 #endif
