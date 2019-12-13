@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Aurelien <Aurelien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:49:39 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/13 14:12:42 by ftrujill         ###   ########.fr       */
+/*   Updated: 2019/12/13 21:54:56 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef	struct		s_info
 	char			*s_room;
 	unsigned int	ants;
 	unsigned int	best_move;
-    int             error;
+    short           error;
     int    			x;
     int    			y;
     int             rooms;

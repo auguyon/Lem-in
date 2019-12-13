@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_free.c                                        :+:      :+:    :+:   */
+/*   end_free.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Aurelien <Aurelien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 12:22:45 by ftrujill          #+#    #+#             */
-/*   Updated: 2019/12/13 14:32:55 by ftrujill         ###   ########.fr       */
+/*   Updated: 2019/12/13 21:54:08 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,25 @@ void        free_possible(t_path **possible)
     free(possible);
 }
 
-/*
 void        free_dt(t_data *dt)
 {
+    int i;
 
+    i = 0;
+    while (i < dt->nb_rooms)
+    {
+        free(dt->name[i]);
+        free(dt->tab[i++]);
+    }
+    free(dt->nbr);
+    free(dt->x);
+    free(dt->y);
+    free(dt->name);
+    free(dt->tab);
+    free(dt);
 }
 
+/*
 void        free_all(t_data *dt, t_layer *layer, t_solution *solution, t_path **possible)
 {
     free_dt(dt);
