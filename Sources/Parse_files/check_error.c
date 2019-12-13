@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Aurelien <Aurelien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/11 18:18:24 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/12/13 16:51:26 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ static int	check_error_room_two(t_btree *groot, char *line, int i, int y)
 		free(name);
 		return (-8);
 	}
-	// btree_search_pos(groot, &j, x, y);
-	// if (j == 1)
-	// 	return (-9);
+	btree_search_pos(groot, &j, x, y);
+	if (j == 1)
+		return (-9);
 	free(name);
 	return (1);
 }
@@ -109,15 +109,16 @@ int			check_error_room(t_btree *groot, t_info *in, int y)
 
 void		check_error(t_info *in, t_btree *groot)
 {
-	printf("Error:%d\n", in->error);
 	if ((in->error <= -1 && in->error >= -3) || (in->error <= -6 && in->error >= -9))
 	{
 		print_error(in->error);
 		free_btree_n_info(in, groot);
+		exit(0);
 	}
 	else if (!in->adr_start || !in->adr_end)
 	{
 		print_error(-7);
 		free_btree_n_info(in, groot);
+		exit(0);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Aurelien <Aurelien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/10 23:12:13 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/12/13 16:51:09 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ void			print_error(short error)
 	else if (error == -2)
 		write(1, "\tRoom has no name.\n", 19);
 	else if (error == -3)
-		write(1, "\tDash in name has forbidden.\n", 29);
+		write(1, "\tDash in name is forbidden.\n", 28);
 	else if (error == -4)
 		write(1, "\tEmpty line\n", 12);
 	else if (error == -5)
-		write(1, "\tWrong room's name for link\n", 28);
+		write(1, "\tWrong room name for link\n", 26);
 	else if (error == -6)
 		write(1, "\tNo ants\n", 9);
 	else if (error == -7)
 		write(1, "\tNo start or end\n", 17);
 	else if (error == -8)
-		write(1, "\tName's room already used.\n", 27);
+		write(1, "\tRoom name already used.\n", 25);
 	else if (error == -9)
 		write(1, "\tX or Y already used.\n", 22);
 	else if (error == -10)
@@ -42,7 +42,6 @@ static void		free_btree_n_link(t_btree *groot)
 {
 	t_link	*tmp;
 
-	tmp = groot->link;
 	if (groot->link)
 	{
 		while (groot->link->next != NULL)

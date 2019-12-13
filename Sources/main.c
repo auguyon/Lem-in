@@ -3,60 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Aurelien <Aurelien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/11 23:59:28 by ftrujill         ###   ########.fr       */
+/*   Updated: 2019/12/13 16:42:36 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/lemin.h"
-
-void	print_list(t_link *l)
-{
-	while (l->next != NULL)
-	{
-		printf("Name link->%s name adr->%s\n", l->name, l->adr->name);
-		l = l->next;
-	}
-	printf("Name link->%s name adr->%s\n", l->name, l->adr->name);
-}
-
-void	print_btree(void *n)
-{
-	t_btree *t;
-
-	t = (t_btree*)n;
-	write(1, "\nBranch-> ", 9);
-	write(1, t->name, ft_strlen(t->name));
-	write(1, "\n", 1);
-	if (t->link)
-		print_list(t->link);
-}
-
-// void	btree_apply_prefix_lr(t_btree *root, void (*applyf)(void *))
-// {
-// 	if (root && applyf)
-// 	{
-// 		if (root)
-// 		{
-// 			applyf(root);
-// 		}
-// 		if (root->left)
-// 		{
-// 			write(1, "DOWN LEFT\n", 10);
-// 			btree_apply_prefix_lr(root->left, applyf);
-// 			write(1, "UP LEFT\n", 8);
-// 		}
-// 		if (root->right)
-// 		{
-// 			write(1, "DOWN RIGHT\n", 11);
-// 			btree_apply_prefix_lr(root->right, applyf);
-// 			write(1, "UP RIGHT\n", 9);
-// 		}
-// 	}
-// }
-
 
 t_data		*parser(void)
 {
@@ -68,7 +22,6 @@ t_data		*parser(void)
 	groot = parse_room(info, 0);
 	parse_link(info, groot);
 	check_error(info, groot);
-    // btree_apply_prefix_lr(groot, &print_btree);
     btree_to_data(groot, info, dt);
 	free_btree_n_info(info, groot);
 	return (dt);
