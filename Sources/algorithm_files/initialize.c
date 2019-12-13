@@ -6,21 +6,11 @@
 /*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 12:05:55 by ftrujill          #+#    #+#             */
-/*   Updated: 2019/12/12 12:48:09 by ftrujill         ###   ########.fr       */
+/*   Updated: 2019/12/13 11:25:47 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/lemin.h"
-
-void	*ft_realloc(void *ptr, size_t size)
-{
-	void	*newptr;
-
-	if (!(newptr = malloc(size)))
-		return (NULL);
-	ft_memcpy(newptr, ptr, size);
-	return (newptr);
-}
 
 void		init_struct_parse(t_data **dt, t_info **i)
 {
@@ -38,11 +28,13 @@ void		init_struct_parse(t_data **dt, t_info **i)
     *(i) = info;
 }
 
-void        initialize(t_layer *layer, int size)
+void        initialize(t_layer **layer_p, int size)
 {
+    t_layer *layer;
     t_path  *p;
 
-    if (!(p = (layer->paths = (t_path*)malloc(sizeof(t_path))))
+    if (!(layer = ((*layer_p) = (t_layer*)malloc(sizeof(t_layer))))
+        || !(p = (layer->paths = (t_path*)malloc(sizeof(t_path))))
         || !(p->path = (int*)malloc(2 * sizeof(int)))
         || !(p->depths = (int*)malloc(2 * sizeof(int)))
         || !(layer->vtd = (int*)ft_memalloc(size * sizeof(int)))
@@ -52,6 +44,7 @@ void        initialize(t_layer *layer, int size)
     layer->nbr_paths = 1;
     layer->sol_depth = size + 1;
     layer->min_depth = 1;
+    layer->vtd[0] = 1;
     p->endpoint = 0;
     p->depth = 1;
     p->path[0] = 0;

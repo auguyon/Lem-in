@@ -6,11 +6,21 @@
 /*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 12:10:28 by ftrujill          #+#    #+#             */
-/*   Updated: 2019/12/12 12:43:55 by ftrujill         ###   ########.fr       */
+/*   Updated: 2019/12/13 11:25:42 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/lemin.h"
+
+void	*ft_realloc(void *ptr, size_t size)
+{
+	void	*newptr;
+
+	if (!(newptr = malloc(size)))
+		return (NULL);
+	ft_memcpy(newptr, ptr, size);
+	return (newptr);
+}
 
 void        copy_path(t_path *source, t_path *dest)
 {
@@ -37,7 +47,8 @@ void        copy_solution(t_layer *new_layer, t_path *path)
 
     n = new_layer->nbr_paths;
     if (!(new_layer->paths[n].path = (int*)malloc((path->depth) * sizeof(int)))
-        || !(new_layer->paths[n].depths = (int*)malloc((path->depth) * sizeof(int))))
+        || !(new_layer->paths[n].depths =
+        (int*)malloc((path->depth) * sizeof(int))))
         ft_malloc_error();
     j = -1;
     while (++j < path->depth)

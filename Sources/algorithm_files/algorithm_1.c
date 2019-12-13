@@ -6,13 +6,13 @@
 /*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 11:06:30 by ftrujill          #+#    #+#             */
-/*   Updated: 2019/12/12 15:10:26 by ftrujill         ###   ########.fr       */
+/*   Updated: 2019/12/13 11:13:09 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/lemin.h"
 
-void        fill_new_layer(t_layer *new_layer, t_path *path,
+void    fill_new_layer(t_layer *new_layer, t_path *path,
                 int w, int used_edge)
 {
     int j;
@@ -37,7 +37,7 @@ void        fill_new_layer(t_layer *new_layer, t_path *path,
         new_layer->vtd[w] = path->depth + 1;
 }
 
-void        add_path(t_layer *new_layer, t_path *path, int w, int used_edge)
+void    add_path(t_layer *new_layer, t_path *path, int w, int used_edge)
 {
     int n;
     int j;
@@ -59,7 +59,7 @@ void        add_path(t_layer *new_layer, t_path *path, int w, int used_edge)
     fill_new_layer(new_layer, path, w, used_edge);
 }
 
-int         j_step(t_path *path, t_layer *new_layer, t_solution *solution, int w)
+int     j_step(t_path *path, t_layer *new_layer, t_solution *solution, int w)
 {
     if (path->endpoint == 0 && solution->used_vertices[w][0])
         return(1);
@@ -73,7 +73,7 @@ int         j_step(t_path *path, t_layer *new_layer, t_solution *solution, int w
     return (0);
 }
 
-int         i_step(t_path *path, t_layer *new_layer, t_solution *solution)
+int     i_step(t_path *path, t_layer *new_layer, t_solution *solution)
 {
     if (new_layer->upd[path->endpoint] != 0 || path->endpoint == new_layer->size)
         return (1);
@@ -98,7 +98,7 @@ int         i_step(t_path *path, t_layer *new_layer, t_solution *solution)
     return (0);
 }
 
-void        next_layer(t_data *dt, t_layer **layer, t_solution *solution)
+void    next_layer(int **g, int *nbr, t_layer **layer, t_solution *solution)
 {
     int         i;
     int         j;
@@ -107,7 +107,7 @@ void        next_layer(t_data *dt, t_layer **layer, t_solution *solution)
 
     if (!(new_layer = (t_layer*)malloc(sizeof(t_layer))))
         ft_malloc_error();
-    initialize_new_layer(new_layer, *layer, dt->nbr);
+    initialize_new_layer(new_layer, *layer, nbr);
     i = -1;
     while (++i < (*layer)->nbr_paths)
     {
@@ -115,12 +115,12 @@ void        next_layer(t_data *dt, t_layer **layer, t_solution *solution)
         if (i_step(path, new_layer, solution))
             continue ;
         j = -1;
-        while (dt->tab[path->endpoint][++j] != -1)
-            if (j_step(path, new_layer, solution, dt->tab[path->endpoint][j]))
+        while (g[path->endpoint][++j] != -1)
+            if (j_step(path, new_layer, solution, g[path->endpoint][j]))
                 continue ;
     }
-    update(new_layer, (*layer)->vtd, (*layer)->upd);
+    update(new_layer, (new_layer)->vtd, (new_layer)->upd);
     min_depth(new_layer);
-   // free_layer(layer);
+    free_layer(layer);
     *layer = new_layer;
 }
