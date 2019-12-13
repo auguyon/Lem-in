@@ -6,7 +6,7 @@
 /*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 12:07:26 by ftrujill          #+#    #+#             */
-/*   Updated: 2019/12/12 21:32:02 by ftrujill         ###   ########.fr       */
+/*   Updated: 2019/12/13 16:05:48 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void        prt_layer(t_layer *layer)
     i = 0;
     ft_printf("\nSize %d, nbr of paths %d, sol_depth %d, min_depth %d\n",
         layer->size, layer->nbr_paths, layer->sol_depth, layer->min_depth);
-    ft_printf("Here5\n");
     while (i < layer->nbr_paths)
         prt_path(&(layer->paths[i++]));    
     i = 0;

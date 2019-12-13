@@ -6,7 +6,7 @@
 /*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:49:39 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/13 11:26:06 by ftrujill         ###   ########.fr       */
+/*   Updated: 2019/12/13 14:12:42 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void                prt_steps(t_path **pos, t_solution *sol, int *path_nbrs, int
 ** Copying
 */
 void                copy_path(t_path *source, t_path *dest);
+void                deep_copy_path(t_path *source, t_path **dest);
 void                copy_solution(t_layer *new_layer, t_path *path);
 void	            *ft_realloc(void *ptr, size_t size);
 /*

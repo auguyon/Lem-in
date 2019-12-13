@@ -6,7 +6,7 @@
 /*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 12:10:28 by ftrujill          #+#    #+#             */
-/*   Updated: 2019/12/13 11:25:42 by ftrujill         ###   ########.fr       */
+/*   Updated: 2019/12/13 16:06:59 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,25 @@ void	*ft_realloc(void *ptr, size_t size)
 	return (newptr);
 }
 
-void        copy_path(t_path *source, t_path *dest)
+void        deep_copy_path(t_path *source, t_path **dest_p)
 {
-    int i;
+    t_path *dest;
 
+    if (!(dest = (*dest_p = (t_path*)malloc(sizeof(t_path))))
+        ||!(dest->path = (int*)ft_realloc(source->path, sizeof(int) * source->depth))
+        || !(dest->depths = (int*)ft_realloc(source->depths, sizeof(int) * source->depth)))
+        ft_malloc_error();
     dest->endpoint = source->endpoint;
     dest->depth = source->depth;
-    if (!(dest->path = (int*)malloc(source->depth * sizeof(int)))
-        || !(dest->depths = (int*)malloc(source->depth * sizeof(int))))
+}
+
+void        copy_path(t_path *source, t_path *dest)
+{
+    dest->endpoint = source->endpoint;
+    dest->depth = source->depth;
+    if (!(dest->path = (int*)ft_realloc(source->path, sizeof(int) * source->depth))
+        || !(dest->depths = (int*)ft_realloc(source->depths, sizeof(int) * source->depth)))
         ft_malloc_error();
-    i = 0;
-    while (i < source->depth)
-    {
-        dest->path[i] = source->path[i];
-        dest->depths[i] = source->depths[i];
-        i++;
-    }
 }
 
 void        copy_solution(t_layer *new_layer, t_path *path)

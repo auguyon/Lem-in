@@ -6,7 +6,7 @@
 /*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 11:10:48 by ftrujill          #+#    #+#             */
-/*   Updated: 2019/12/13 11:25:31 by ftrujill         ###   ########.fr       */
+/*   Updated: 2019/12/13 16:05:02 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ void    merge_second_aux(t_path *tmp, t_solution *solution, int p, int pos)
     t_path  *tmp2;
     t_path  *new_path;
 
-    if (!(tmp2 = (t_path*)malloc(sizeof(t_path))))
-        ft_malloc_error();
     new_path = &solution->paths[solution->nbr_paths];
-    copy_path(new_path, tmp2);
+    deep_copy_path(new_path, &tmp2);
+    new_path->path = (int*)malloc(sizeof(int) * solution->size);
+    new_path->depths = (int*)malloc(sizeof(int) * solution->size);
     j = -1;
-    while (++j < p)
+    while (++j < ft_min(p, tmp->depth))
     {
         new_path->path[j] = tmp->path[j];
         new_path->depths[j] = tmp->depths[j];
@@ -82,9 +82,8 @@ void    merge_paths(t_solution *solution, int pos, int i, int p)
     t_path  *old_path;
     t_path  *new_path;
 
-    if (!(tmp = (t_path*)malloc(sizeof(t_path))))
-        ft_malloc_error();
-    copy_path(&solution->paths[i], tmp);
+    prt_path(&(solution->paths[i]));
+    deep_copy_path(&(solution->paths[i]), &tmp);
     merge_first_aux(solution, pos, i, p);
     old_path = &solution->paths[i];
     new_path = &solution->paths[solution->nbr_paths];
