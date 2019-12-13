@@ -6,7 +6,7 @@
 /*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 11:02:23 by ftrujill          #+#    #+#             */
-/*   Updated: 2019/12/13 16:06:09 by ftrujill         ###   ########.fr       */
+/*   Updated: 2019/12/13 22:00:49 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,28 +92,30 @@ int         *path_numbers(t_path **possible, t_solution *sol)
     return (tab);
 }
 
-void        prt_steps(t_path **pos, t_solution *sol, int *path_nbrs, int *ant_first)
+void        prt_steps(t_data *dt, t_path **pos, int *path_nbrs, int *ant_first)
 {
     int i;
     int j;
     int f;
 
     i = -1;
-    f = sol->nbr_paths + 1;
-    while (++i < sol->nbr_steps)
+    f = dt->nbr_paths + 1;
+    while (++i < dt->nbr_steps)
     {
         j = -1;
         while(++j < f)
         {
-            if (j >= sol->nbr_ants || i - ant_first[j] >
-                pos[sol->nbr_paths][path_nbrs[j]].depth - 2)
+            if (j >= dt->ants || i - ant_first[j] >
+                pos[dt->nbr_paths][path_nbrs[j]].depth - 2)
                 continue;
             else
-                ft_printf("L%d-%d ", j, pos[sol->nbr_paths][path_nbrs[j]].path[i - ant_first[j] + 1]);
+                ft_printf("L%d-%s ", j, dt->name[pos[dt->nbr_paths]
+                    [path_nbrs[j]].path[i - ant_first[j] + 1]]);
         }
         ft_printf("\n");
         j = -1;
-        while (++j <= sol->nbr_paths)
-            f = (sol->nbr_steps - i < pos[sol->nbr_paths][j].depth) ? f : f + 1;
+        while (++j <= dt->nbr_paths)
+            f = (dt->nbr_steps - i < pos[dt->nbr_paths][j].depth) ?
+                f : f + 1;
     }
 }

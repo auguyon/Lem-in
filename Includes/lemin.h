@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Aurelien <Aurelien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:49:39 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/13 21:54:56 by Aurelien         ###   ########.fr       */
+/*   Updated: 2019/12/13 22:58:27 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ typedef struct      s_data
     char            **name;
     int             ants;
     int             nb_rooms;
+    int             nbr_paths;
+    int             nbr_steps;
     int             best_move;
 }                   t_data;
 
@@ -125,7 +127,7 @@ void                prt_solution(t_solution *solution);
 void                prt_possible(t_path **possible);
 int                 *ant_first_app(t_path **possible, t_solution *sol);
 int                 *path_numbers(t_path **possible, t_solution *sol);
-void                prt_steps(t_path **pos, t_solution *sol, int *path_nbrs, int *ant_first);
+void                prt_steps(t_data *dt, t_path **pos, int *path_nbrs, int *ant_first);
 /*
 ** Copying
 */
@@ -151,10 +153,11 @@ void                update_solution(t_path *path, t_solution *solution, t_path *
 ** Free
 */
 void                free_path(t_path *path);
+void                free_dt(t_data *dt);
 void                free_stored_path(t_path *path);
 void                free_layer(t_layer **layer);
 void                free_new_layer(t_layer **layer, t_layer *new_layer);
 void                free_solution(t_solution *solution);
 void                free_possible(t_path **possible);
-void                free_all(t_data *dt, t_layer *layer, t_solution *solution, t_path **possible);
+void                free_all(t_data *dt, t_solution *solution, t_path **possible);
 #endif

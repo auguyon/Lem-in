@@ -6,40 +6,34 @@
 /*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:39:54 by ftrujill          #+#    #+#             */
-/*   Updated: 2019/12/13 16:05:24 by ftrujill         ###   ########.fr       */
+/*   Updated: 2019/12/13 22:47:47 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/lemin.h"
 
-void         find_solution(t_path **possible, t_solution *sol)
+int         is_trivial(t_data *dt)
 {
     int     i;
-    int     j;
-    int     s;
-    int     max_length;
-    int     aux;
+    int     n;
 
     i = 0;
-    while (possible[++i])
-    {
-        j = 0;
-        s = 0;
-        max_length = possible[0][0].depth;
-        while (j <= i)
-        {
-            s += possible[i][j].depth;
-            max_length = ft_max(max_length, possible[i][j++].depth);
-        }
-        if ((i + 1) * (max_length + 1) <= sol->nbr_ants + s)
-        {
-            aux = ((sol->nbr_ants + s) % (i + 1) == 0) ? (sol->nbr_ants + s) /
-                (i + 1) - 2 : (sol->nbr_ants + s) / (i + 1) - 1;
-            sol->nbr_paths = (aux < sol->nbr_steps) ? i : sol->nbr_paths;
-            sol->nbr_steps = ft_min(aux, sol->nbr_steps);
-        }
-    }
-}  
+    n = 0; 
+    while (i < dt->nbr[0])
+        n = (dt->tab[0][i++] == dt->nb_rooms - 1) ? 1 : n;
+    if (!n)
+        return (0);
+    i = 0;
+    while (i + 1 < dt->ants)
+        ft_printf("L%d-%s ", i++, dt->name[dt->nb_rooms - 1]);
+    if (dt->ants)
+        ft_printf("L%d-%s", i, dt->name[dt->nb_rooms - 1]);
+    ft_printf("\n");
+    ft_printf("\nAnd the right solution with %d ants is the one with a trivial path"
+    " and it takes 1 step\n", dt->ants);
+    free_dt(dt);
+    return (1);
+}
 
 int        mbfs(t_data *dt, t_solution *solution, t_path **possible)
 {
@@ -90,7 +84,6 @@ int         solver_2(t_data *dt, t_solution *solution, t_path **possible)
     int *ant_first;
 
     possible[0] = NULL;
-   // prt_g(dt->tab, dt->nb_rooms);
     while (mbfs(dt, solution, possible))
     {
     }
@@ -102,13 +95,15 @@ int         solver_2(t_data *dt, t_solution *solution, t_path **possible)
     find_solution(possible, solution);
     path_nbrs = path_numbers(possible, solution);
     ant_first = ant_first_app(possible, solution);
-    prt_steps(possible, solution, path_nbrs, ant_first);
-    ft_printf("\nAnd the right solution with %d ants is the one with %d path(s)"
-    " and it takes %d step(s)\n\n", dt->ants, solution->nbr_paths + 1, solution->nbr_steps);
+    dt->nbr_steps = solution->nbr_steps;
+    dt->nbr_paths = solution->nbr_paths;
+    prt_steps(dt, possible, path_nbrs, ant_first);
+    ft_printf("\nAnd the right solution with %d ants is the one with %d "
+        "path(s) and it takes %d step(s)\n\n", dt->ants,
+        solution->nbr_paths + 1, solution->nbr_steps);
     free(path_nbrs);
     free(ant_first);
-    free_possible(possible);
-    free_solution(solution);
+    free_all(dt, solution, possible);
     return (0);
 }
 
@@ -120,6 +115,8 @@ int         solver(t_data *dt)
     t_path      **possible;
 
     size = dt->nb_rooms;
+    if (is_trivial(dt))
+        return (0);
     if (!(solution = (t_solution*)malloc(sizeof(t_solution)))
         || !(solution->used_vertices = (int**)malloc(size * sizeof(int*)))
         || !(solution->paths = (t_path*)malloc(size * sizeof(t_path)))

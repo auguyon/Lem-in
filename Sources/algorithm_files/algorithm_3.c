@@ -6,11 +6,40 @@
 /*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 11:10:48 by ftrujill          #+#    #+#             */
-/*   Updated: 2019/12/13 16:05:02 by ftrujill         ###   ########.fr       */
+/*   Updated: 2019/12/13 22:48:23 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/lemin.h"
+
+void         find_solution(t_path **possible, t_solution *sol)
+{
+    int     i;
+    int     j;
+    int     s;
+    int     max_length;
+    int     aux;
+
+    i = 0;
+    while (possible[++i])
+    {
+        j = 0;
+        s = 0;
+        max_length = possible[0][0].depth;
+        while (j <= i)
+        {
+            s += possible[i][j].depth;
+            max_length = ft_max(max_length, possible[i][j++].depth);
+        }
+        if ((i + 1) * (max_length + 1) <= sol->nbr_ants + s)
+        {
+            aux = ((sol->nbr_ants + s) % (i + 1) == 0) ? (sol->nbr_ants + s) /
+                (i + 1) - 2 : (sol->nbr_ants + s) / (i + 1) - 1;
+            sol->nbr_paths = (aux < sol->nbr_steps) ? i : sol->nbr_paths;
+            sol->nbr_steps = ft_min(aux, sol->nbr_steps);
+        }
+    }
+}  
 
 void    merge_first_aux(t_solution *solution, int pos, int i, int p)
 {
