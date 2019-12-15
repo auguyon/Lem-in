@@ -6,7 +6,7 @@
 /*   By: Aurelien <Aurelien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/13 16:51:26 by Aurelien         ###   ########.fr       */
+/*   Updated: 2019/12/15 19:24:25 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,14 @@ static int	verif_room_name(t_btree *groot, char *line)
 
 	j = 0;
 	name = ft_strcdup(line, '-');
-	btree_search_name(groot, &j, name);
-	if (j == 0)
+	if (btree_search_name(groot, &j, name) && j == 0)
 	{
 		free(name);
 		return (-5);
 	}
 	free(name);
 	name = ft_strdup(line + (ft_strclen(line, '-') + 1));
-	btree_search_name(groot, &j, name);
-	if (j == 0)
+	if (btree_search_name(groot, &j, name) && j == 0)
 	{
 		free(name);
 		return (-5);
@@ -70,16 +68,14 @@ static int	check_error_room_two(t_btree *groot, char *line, int i, int y)
 	}
 	j = 0;
 	name = ft_strndup(line, i);
-	btree_search_name(groot, &j, name);
-	if (j == 1)
+	if (btree_search_name(groot, &j, name) && j == 1)
 	{
 		free(name);
 		return (-8);
 	}
-	btree_search_pos(groot, &j, x, y);
-	if (j == 1)
-		return (-9);
 	free(name);
+	if (btree_search_pos(groot, &j, x, y)  && j == 1)
+		return (-9);
 	return (1);
 }
 
@@ -113,12 +109,13 @@ void		check_error(t_info *in, t_btree *groot)
 	{
 		print_error(in->error);
 		free_btree_n_info(in, groot);
-		exit(0);
+		while (1);
+		// exit(0);
 	}
 	else if (!in->adr_start || !in->adr_end)
 	{
 		print_error(-7);
 		free_btree_n_info(in, groot);
-		exit(0);
+		// exit(0);
 	}
 }

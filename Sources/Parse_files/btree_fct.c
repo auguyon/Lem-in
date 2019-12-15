@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   btree_fct.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Aurelien <Aurelien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/11 17:55:24 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/12/15 19:16:17 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		btree_search_name(t_btree *groot, int *j, char *find)
 		if (groot->left)
 			btree_search_name(groot->left, j, find);
 		if (groot)
-			if (ft_strcmp(groot->name, find) == 0) // printf("{%s} && {%s}\n", groot->name, find) && 
+			if (ft_strcmp(groot->name, find) == 0)
 				*(j) = 1;
 		if (groot->right)
 			btree_search_name(groot->right, j, find);
@@ -29,7 +29,6 @@ int		btree_search_name(t_btree *groot, int *j, char *find)
 
 static int	cmp_int(int cmp_a, int cmp_b, int a, int b)
 {
-	// printf("Groot x{%d} ->{%d} && y{%d} ->{%d}\n", cmp_a, a, cmp_b, b);
 	if (cmp_a == a && cmp_b == b)
 		return (0);
 	return (1);

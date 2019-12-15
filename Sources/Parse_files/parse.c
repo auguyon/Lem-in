@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Aurelien <Aurelien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/11 18:07:05 by auguyon          ###   ########.fr       */
+/*   Updated: 2019/12/15 19:18:45 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void		parse_link(t_info *in, t_btree *groot)
 			free(in->f_room);
 			free(in->s_room);
 		}
-		free(in->line);
 		ft_putendl(in->line);
+		free(in->line);
 		in->line = NULL;
 	}
 	if (in->line != NULL)

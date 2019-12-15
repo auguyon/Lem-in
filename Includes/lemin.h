@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: Aurelien <Aurelien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:49:39 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/13 22:58:27 by ftrujill         ###   ########.fr       */
+/*   Updated: 2019/12/15 19:10:40 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,8 @@ void                update(t_layer *new_layer, int *visited, int *updated);
 void                find_solution(t_path **possible, t_solution *sol);
 void                merge_paths(t_solution *solution, int pos, int i, int p);
 void                update_solution(t_path *path, t_solution *solution, t_path **possible);
+int                 is_trivial(t_data *dt);
+void                order_possible(t_path **possible);
 /*
 ** Free
 */

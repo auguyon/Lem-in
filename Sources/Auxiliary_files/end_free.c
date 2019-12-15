@@ -6,7 +6,7 @@
 /*   By: Aurelien <Aurelien@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 12:22:45 by ftrujill          #+#    #+#             */
-/*   Updated: 2019/12/13 21:54:08 by Aurelien         ###   ########.fr       */
+/*   Updated: 2019/12/15 19:08:23 by Aurelien         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,9 @@ void        free_dt(t_data *dt)
     free(dt);
 }
 
-/*
-void        free_all(t_data *dt, t_layer *layer, t_solution *solution, t_path **possible)
+void        free_all(t_data *dt, t_solution *solution, t_path **possible)
 {
     free_dt(dt);
-    free_layer(&layer);
     free_solution(solution);
     free_possible(possible);
 }
-*/
