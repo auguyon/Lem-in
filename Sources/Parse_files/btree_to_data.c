@@ -84,6 +84,7 @@ void			btree_to_data(t_btree *groot, t_info *info, t_data *dt)
 	dt->nb_rooms = info->rooms;
 	dt->ants = info->ants;
 	dt->best_move = info->best_move;
+	dt->error = info->error;
 	info->adr_start->nb = 0;
 	info->adr_end->nb = info->rooms - 1;
 	btree_prefix_count(groot, info, &i);

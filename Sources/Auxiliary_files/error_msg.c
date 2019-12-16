@@ -21,10 +21,8 @@ void	print_error(short error)
 		write(1, "\tRoom has no name.\n", 19);
 	else if (error == -3)
 		write(1, "\tDash in name is forbidden.\n", 28);
-	else if (error == -4)
-		write(1, "\tEmpty line\n", 12);
-	else if (error == -5)
-		write(1, "\tWrong room name for link\n", 26);
+	else if (error == -11)
+		write(1, "\tNo dash for link instruction.\n", 31);
 	else if (error == -6)
 		write(1, "\tNo ants\n", 9);
 	else if (error == -7)
@@ -32,8 +30,12 @@ void	print_error(short error)
 	else if (error == -8)
 		write(1, "\tRoom name already used.\n", 25);
 	else if (error == -9)
-		write(1, "\tX or Y already used.\n", 22);
+		write(1, "\tX and Y already used.\n", 23);
 	else if (error == -10)
 		write(1, "\tNo path found.\n", 16);
+	else if (error == -4)
+		write(1, "\tEmpty line\n", 12);
+	else if (error == -5)
+		write(1, "\tWrong room name for link\n", 26);
 	write(1, "\033[0m", 4);
 }

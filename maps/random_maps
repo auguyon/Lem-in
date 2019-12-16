@@ -1,17 +1,17 @@
-50
+1
 ##start
 bonjour 0 0
 byebye 1 1
 ertyu 2 2
 sdfg 3 3
-ertu 4 4
+truc 4 4
 prout 5 5
 ##end
 dede 6 6
-dede-bonjour
-dede-ertyu
+truc-bonjour
+truc-ertyu
 bonjour-byebye
 prout-bonjour
 prout-byebye
-dede-ertu
+dede-ertyu
 etrsdfdsf-dhfgdfds

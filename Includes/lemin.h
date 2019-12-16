@@ -63,6 +63,7 @@ typedef struct      s_data
     int             nbr_paths;
     int             nbr_steps;
     int             best_move;
+    short           error;
 }                   t_data;
 
 typedef struct      s_path

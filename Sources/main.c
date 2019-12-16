@@ -108,6 +108,7 @@ int		 main(int argc, char **argv)
 	t_data	 *dt;
 
 	dt = parser();
+	printf("\nSolver\n");
 	solver(dt);
 	// while(1);
 	return (0);

@@ -47,8 +47,10 @@ int			check_error_link(t_btree *groot, t_info *info)
 		info->best_move = ft_atoi(name);
 		return (1);
 	}
-	if (ft_count_c(info->line, '-') != 1)
+	if (ft_count_c(info->line, '-') > 1)
 		return (-3);
+	if (ft_count_c(info->line, '-') == 0)
+		return (-11);
 	return (verif_room_name(groot, info->line));
 }
 
@@ -84,8 +86,7 @@ int			check_error_room(t_btree *groot, t_info *in, int y)
 	int		i;
 
 	if (ft_count_c(in->line, '-') == 1)
-		if (verif_room_name(groot, in->line) == 1)
-			return (2);
+		return (2);
 	if (!(i = ft_strlen(in->line)))
 		return (-4);
 	if (!ft_isdigit(in->line[i - 1]))
@@ -106,7 +107,7 @@ int			check_error_room(t_btree *groot, t_info *in, int y)
 void		check_error(t_info *in, t_btree *groot)
 {
 	if ((in->error <= -1 && in->error >= -3)
-		|| (in->error <= -6 && in->error >= -9))
+		|| (in->error <= -6 && in->error >= -9) || in->error == -11)
 	{
 		print_error(in->error);
 		free_btree_n_info(in, groot);
