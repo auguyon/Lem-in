@@ -12,7 +12,7 @@
 
 #include "../../Includes/lemin.h"
 
-int		btree_search_name(t_btree *groot, int *j, char *find)
+int			btree_search_name(t_btree *groot, int *j, char *find)
 {
 	if (groot)
 	{
@@ -34,7 +34,7 @@ static int	cmp_int(int cmp_a, int cmp_b, int a, int b)
 	return (1);
 }
 
-int		btree_search_pos(t_btree *groot, int *j, int x, int y)
+int			btree_search_pos(t_btree *groot, int *j, int x, int y)
 {
 	if (groot)
 	{

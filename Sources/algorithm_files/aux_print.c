@@ -12,7 +12,7 @@
 
 #include "../../Includes/lemin.h"
 
-void    prt_g(int **g, int size)
+void        prt_g(int **g, int size)
 {
     int i;
     int j;

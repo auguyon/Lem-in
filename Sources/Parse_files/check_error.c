@@ -74,7 +74,7 @@ static int	check_error_room_two(t_btree *groot, char *line, int i, int y)
 		return (-8);
 	}
 	free(name);
-	if (btree_search_pos(groot, &j, x, y)  && j == 1)
+	if (btree_search_pos(groot, &j, x, y) && j == 1)
 		return (-9);
 	return (1);
 }
@@ -105,17 +105,17 @@ int			check_error_room(t_btree *groot, t_info *in, int y)
 
 void		check_error(t_info *in, t_btree *groot)
 {
-	if ((in->error <= -1 && in->error >= -3) || (in->error <= -6 && in->error >= -9))
+	if ((in->error <= -1 && in->error >= -3)
+		|| (in->error <= -6 && in->error >= -9))
 	{
 		print_error(in->error);
 		free_btree_n_info(in, groot);
-		while (1);
-		// exit(0);
+		exit(0);
 	}
 	else if (!in->adr_start || !in->adr_end)
 	{
 		print_error(-7);
 		free_btree_n_info(in, groot);
-		// exit(0);
+		exit(0);
 	}
 }

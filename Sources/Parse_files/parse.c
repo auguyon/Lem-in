@@ -87,4 +87,3 @@ t_btree		*parse_room(t_info *in, short code)
 	}
 	return (groot);
 }
-

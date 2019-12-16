@@ -12,7 +12,7 @@
 
 #include "../../Includes/lemin.h"
 
-void			print_error(short error)
+void	print_error(short error)
 {
 	write(1, "\033[31mError:\n", 13);
 	if (error == -1)

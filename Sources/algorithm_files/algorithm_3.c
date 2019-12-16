@@ -70,6 +70,7 @@ void    merge_second_aux(t_path *tmp, t_solution *solution, int p, int pos)
 
     new_path = &solution->paths[solution->nbr_paths];
     deep_copy_path(new_path, &tmp2);
+    free_path(new_path);
     new_path->path = (int*)malloc(sizeof(int) * solution->size);
     new_path->depths = (int*)malloc(sizeof(int) * solution->size);
     j = -1;

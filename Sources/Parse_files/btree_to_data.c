@@ -17,7 +17,6 @@ static void		fill_data(t_btree *groot, t_data *dt)
 	t_btree		*branch;
 	t_link		*link;
 
-
 	dt->nbr[groot->nb] = 0;
 	link = groot->link;
 	branch = link->adr;
@@ -76,7 +75,6 @@ static void		btree_prefix_count(t_btree *root, t_info *info, int *nb)
 	if (root->right)
 		btree_prefix_count(root->right, info, nb);
 }
-
 
 void			btree_to_data(t_btree *groot, t_info *info, t_data *dt)
 {
