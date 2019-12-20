@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Aurelien <Aurelien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:49:39 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/15 19:10:40 by Aurelien         ###   ########.fr       */
+/*   Updated: 2019/12/20 11:43:18 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,14 +126,15 @@ void                prt_path(t_path *path);
 void                prt_layer(t_layer *layer);
 void                prt_solution(t_solution *solution);
 void                prt_possible(t_path **possible);
-int                 *ant_first_app(t_path **possible, t_solution *sol);
-int                 *path_numbers(t_path **possible, t_solution *sol);
+void                prt_check_possible(t_path **possible, t_data *dt);
+int                 *ant_first_app(t_data *dt, t_path **possible);
+int                 *path_numbers(t_data *dt, t_path **possible);
 void                prt_steps(t_data *dt, t_path **pos, int *path_nbrs, int *ant_first);
 /*
 ** Copying
 */
 void                copy_path(t_path *source, t_path *dest);
-void                deep_copy_path(t_path *source, t_path **dest);
+void                deep_copy_path(t_path *source, t_path **dest, int size);
 void                copy_solution(t_layer *new_layer, t_path *path);
 void	            *ft_realloc(void *ptr, size_t size);
 /*
@@ -147,11 +148,9 @@ void                min_depth(t_layer *layer);
 void                update(t_layer *new_layer, int *visited, int *updated);
 void                next_layer(int **g, int *nbr, t_layer **layer, t_solution *solution);
 void                update(t_layer *new_layer, int *visited, int *updated);
-void                find_solution(t_path **possible, t_solution *sol);
+void                find_solution(t_data *dt, t_path **possible);
 void                merge_paths(t_solution *solution, int pos, int i, int p);
 void                update_solution(t_path *path, t_solution *solution, t_path **possible);
-int                 is_trivial(t_data *dt);
-void                order_possible(t_path **possible);
 /*
 ** Free
 */

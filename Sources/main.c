@@ -3,72 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Aurelien <Aurelien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/15 19:11:52 by Aurelien         ###   ########.fr       */
+/*   Updated: 2019/12/20 11:44:33 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/lemin.h"
-
-int		 solver_2(t_data *dt, t_solution *solution, t_path **possible)
-{
-	int		*path_nbrs;
-	int		*ant_first;
-
-	possible[0] = NULL;
-	while (mbfs(dt, solution, possible))
-	{
-	}
-	solution->nbr_paths = 0;
-	solution->nbr_ants = dt->ants;
-	solution->nbr_steps = dt->ants + possible[0][0].depth - 2;
-	order_possible(possible);
-	//prt_possible(possible);
-	find_solution(possible, solution);
-	path_nbrs = path_numbers(possible, solution);
-	ant_first = ant_first_app(possible, solution);
-	dt->nbr_steps = solution->nbr_steps;
-	dt->nbr_paths = solution->nbr_paths;
-	prt_steps(dt, possible, path_nbrs, ant_first);
-	ft_printf("\nThe right solution with %d ants is the one with %d "
-		"path(s) and it takes %d step(s) and the recommanded step(s) is %d\n", dt->ants,
-		solution->nbr_paths + 1, solution->nbr_steps, dt->best_move);
-	free(path_nbrs);
-	free(ant_first);
-	free_all(dt, solution, possible);
-	return (0);
-}
-
-int		 solver(t_data *dt)
-{
-	int			i;
-	int			size;
-	t_solution	 *solution;
-	t_path		 **possible;
-
-	size = dt->nb_rooms;
-	if (is_trivial(dt))
-		return (0);
-	if (!(solution = (t_solution*)malloc(sizeof(t_solution)))
-		|| !(solution->used_vertices = (int**)malloc(size * sizeof(int*)))
-		|| !(solution->paths = (t_path*)malloc(size * sizeof(t_path)))
-		|| !(possible = (t_path**)malloc(size * sizeof(t_path*))))
-		ft_malloc_error();
-	i = 0;
-	while (i < size)
-	{
-		if (!(solution->used_vertices[i] = (int*)malloc(3 * sizeof(int))))
-			ft_malloc_error();
-		solution->used_vertices[i++][0] = 0;
-	}
-	solution->max_length = 0;
-	solution->nbr_paths = 0;
-	solution->size = size;   
-	return (solver_2(dt, solution, possible));
-}
-
 
 t_data		*parser(void)
 {

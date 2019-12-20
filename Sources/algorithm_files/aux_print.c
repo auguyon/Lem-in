@@ -6,13 +6,13 @@
 /*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 12:07:26 by ftrujill          #+#    #+#             */
-/*   Updated: 2019/12/13 16:05:48 by ftrujill         ###   ########.fr       */
+/*   Updated: 2019/12/20 11:31:07 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/lemin.h"
 
-void        prt_g(int **g, int size)
+void    prt_g(int **g, int size)
 {
     int i;
     int j;
@@ -47,7 +47,6 @@ void        prt_path(t_path *path)
 void        prt_layer(t_layer *layer)
 {
     int     i;
-    t_path  *path;
 
     i = 0;
     ft_printf("\nSize %d, nbr of paths %d, sol_depth %d, min_depth %d\n",
@@ -55,34 +54,18 @@ void        prt_layer(t_layer *layer)
     while (i < layer->nbr_paths)
         prt_path(&(layer->paths[i++]));    
     i = 0;
-    ft_printf("Updated\n");
-    while (i < layer->size)
-        ft_printf("%d ", layer->upd[i++]);
-    ft_printf("\n");
-    ft_printf("Visited\n");
-    i = 0;
-    while (i < layer->size)
-        ft_printf("%d ", layer->vtd[i++]);
-    ft_printf("\n");
 }
 
 void    prt_solution(t_solution *solution)
 {
     int i;
 
+    ft_printf("\n\nThe solution\n\n");
     ft_printf("\nThe size is %d, nbr_paths %d, max_length %d\n",
         solution->size, solution->nbr_paths, solution->max_length);
     i = 0;
     while (i < solution->nbr_paths)
         prt_path(&solution->paths[i++]);
-    i = 0;
-    while (i < solution->size)
-    {
-        if (solution->used_vertices[i][0])
-            ft_printf("\nVertex %d is used by the path %d at position %d\n", i,
-                solution->used_vertices[i][1], solution->used_vertices[i][2]);
-        i++;
-    }
 }
 
 void    prt_possible(t_path **possible)

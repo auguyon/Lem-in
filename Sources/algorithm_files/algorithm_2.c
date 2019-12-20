@@ -1,16 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   solution.c                                         :+:      :+:    :+:   */
+/*   algorithm_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 21:20:39 by ftrujill          #+#    #+#             */
-/*   Updated: 2019/12/13 22:48:19 by ftrujill         ###   ########.fr       */
+/*   Updated: 2019/12/20 11:30:49 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/lemin.h"
+
+void        order_solution(t_solution *solution)
+{
+    int     i;
+    t_path  tmp;
+
+    i = 0;
+    while (i < solution->nbr_paths - 1)
+    {
+        if (solution->paths[i].depth > solution->paths[i + 1].depth)
+            {
+                tmp = solution->paths[i];
+                solution->paths[i] = solution->paths[i + 1];
+                solution->paths[i + 1] = tmp;
+                i = 0;
+            }
+        else
+            i++;
+    }
+   solution->max_length = solution->paths[solution->nbr_paths - 1].depth;
+}
 
 void        update(t_layer *new_layer, int *visited, int *updated)
 {
@@ -70,12 +91,15 @@ void    update_solution_aux(t_path *new_path, t_solution *solution,
     i = 0;
     while (possible[i])
         i++;
-    if (!(possible[i] = (t_path*)malloc((solution->nbr_paths + 1) * sizeof(t_path))))
+    if (!(possible[i] = (t_path*)ft_memalloc((solution->nbr_paths + 1)
+        * sizeof(t_path))))
         ft_malloc_error();
     j = -1;
-    while (++j < solution->nbr_paths)
+    while (++j < i + 1)
         copy_path(&solution->paths[j], &possible[i][j]);
     possible[i + 1] = NULL;
+    solution->max_length = ft_max(solution->max_length,
+                            solution->paths[solution->nbr_paths - 1].depth);
 }
 
 void    update_solution(t_path *path, t_solution *solution, t_path **possible)
@@ -85,18 +109,17 @@ void    update_solution(t_path *path, t_solution *solution, t_path **possible)
 
     new_path = &solution->paths[solution->nbr_paths];
     copy_path(path, new_path);
-    i = 1;
-    while (i < new_path->depth - 1)
+    i = new_path->depth - 2;
+    while (i > 0)
     {
-        if (solution->used_vertices[new_path->path[i]][0] != 0 && solution->
-            used_vertices[new_path->path[i]][1] != solution->nbr_paths)
+        if (solution->used_vertices[new_path->path[i]][0] != 0)
         {
-            merge_paths(solution, i, solution->used_vertices[new_path->path[i]][1],
-                solution->used_vertices[new_path->path[i]][2]);
-            i = 1;
+            merge_paths(solution, i, solution->used_vertices[new_path->path[i]]
+                [1], solution->used_vertices[new_path->path[i]][2]);
+            i = new_path->depth - 2;;
         }
         else
-            i++;
+            i--;
     }
     update_solution_aux(new_path, solution, possible);
 }
