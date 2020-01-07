@@ -6,13 +6,13 @@
 /*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/10 19:44:40 by auguyon          ###   ########.fr       */
+/*   Updated: 2020/01/03 15:50:01 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/lemin.h"
 
-static void	put_link(t_btree **adr_room, t_link **link, char *room)
+static void	put_link(t_btree **adr_room, t_link **link)
 {
 	t_link	*new;
 	t_link	*current;
@@ -55,8 +55,8 @@ void		btree_add_link(t_btree *start, t_btree *groot, char *f, char *room)
 		}
 		else
 		{
-			put_link(&branch, &groot->link, room);
-			put_link(&groot, &branch->link, f);
+			put_link(&branch, &groot->link);
+			put_link(&groot, &branch->link);
 			i = 0;
 		}
 	}

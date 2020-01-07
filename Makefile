@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nvienot <nvienot@student.42.fr>            +#+  +:+       +#+         #
+#    By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/14 15:52:13 by nvienot           #+#    #+#              #
-#    Updated: 2019/02/18 14:57:25 by nvienot          ###   ########.fr        #
+#    Updated: 2020/01/03 15:54:10 by auguyon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ aux		:= end_free.c error_msg.c initialize.c
 aux		:= $(addprefix $(auxdir)/, $(aux))
 
 algodir	:= Sources/Algorithm_files
-algo	:= algorithm_0.c algorithm_1.c algorithm_3.c aux_copy.c aux_print.c
-algo	+= print_sol.c solution.c
+algo	:= algorithm_0.c algorithm_1.c algorithm_2.c algorithm_3.c aux_copy.c
+algo	+= print_sol.c check_sol.c aux_print.c
 algo	:= $(addprefix $(algodir)/, $(algo))
 
 SRCS	:= $(parse) $(aux) $(algo) Sources/main.c

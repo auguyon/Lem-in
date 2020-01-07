@@ -100,13 +100,12 @@ int         solver_2(t_data *dt, t_solution *solution, t_path **possible)
     path_nbrs = path_numbers(dt, possible);
     ant_first = ant_first_app(dt, possible);
     prt_steps(dt, possible, path_nbrs, ant_first);
-    ft_printf("\nAnd the right solution with %d ants is the one with %d "
-        "path(s) and it takes %d step(s)\n\n", dt->ants,
-        dt->nbr_paths + 1, dt->nbr_steps);
+    ft_printf("\nThe right solution with %d ants is the one with %d "
+        "path(s) and it takes %d step(s) for %d step(s) asked.\n", dt->ants,
+        dt->nbr_paths + 1, dt->nbr_steps, dt->best_move);
     free(path_nbrs);
     free(ant_first);
     free_all(dt, solution, possible);
-    while(1){}
     return (0);
 }
 

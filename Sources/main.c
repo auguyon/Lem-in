@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/20 11:44:33 by ftrujill         ###   ########.fr       */
+/*   Updated: 2020/01/03 15:52:12 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int		 main(int argc, char **argv)
 {
 	t_data	 *dt;
 
+	(void)argc;
+	(void)argv;
 	dt = parser();
 	printf("\nSolver\n");
 	solver(dt);

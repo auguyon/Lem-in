@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algorithm_3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 11:10:48 by ftrujill          #+#    #+#             */
-/*   Updated: 2019/12/20 11:33:49 by ftrujill         ###   ########.fr       */
+/*   Updated: 2020/01/03 15:51:48 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ void    merge_second_aux(t_path *tmp, t_solution *solution, int p, int pos, int 
     int     j;
     int     k;
     t_path  *tmp2;
-    t_path  *old_path;
     t_path  *new_path;
 
     new_path = &solution->paths[solution->nbr_paths];
@@ -130,7 +129,6 @@ void    merge_second_aux(t_path *tmp, t_solution *solution, int p, int pos, int 
 
 void    merge_paths(t_solution *solution, int pos, int i, int p)
 {
-    int     j;
     t_path  *tmp;
     t_path  *old_path;
     t_path  *new_path;
