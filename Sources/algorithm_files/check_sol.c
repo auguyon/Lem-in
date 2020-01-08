@@ -12,76 +12,76 @@
 
 #include "../../Includes/lemin.h"
 
-int     check_path(t_path *path, t_data *dt)
+int	 check_path(t_path *path, t_data *dt)
 {
-    int i;
-    int j;
-    int t;
+	int i;
+	int j;
+	int t;
 
-    if (path->path[0] != 0 || path->path[path->depth - 1] != dt->nb_rooms - 1)
-        ft_printf("\nWRONG bad start %d or ending %d \n", path->path[0], path->path[1]);
-    i = -1;
-    while (++i < path->depth - 1)
-    {
-        if (path->path[i] == dt->nb_rooms - 1)
-            ft_printf("\nEnding at position %d \n", i);
-        t = 0;
-        j = -1;
-        while (dt->tab[path->path[i]][++j] != -1)
-            if (dt->tab[path->path[i]][j] == path->path[i + 1])
-                t = 1;
-        if (t == 0)
-            ft_printf("\nWRONG not neighbour \n");
-        j = -1;
-        while (++j < i)
-            if (path->path[i] == path->path[j])
-                    ft_printf("\nWRONG Repeated link at positions %d, %d with"
-                    "values %d, %d \n", i, j, path->path[i], path->path[j]);
-    }
-    return (0);
+	if (path->path[0] != 0 || path->path[path->depth - 1] != dt->nb_rooms - 1)
+		ft_printf("\nWRONG bad start %d or ending %d \n", path->path[0], path->path[1]);
+	i = -1;
+	while (++i < path->depth - 1)
+	{
+		if (path->path[i] == dt->nb_rooms - 1)
+			ft_printf("\nEnding at position %d \n", i);
+		t = 0;
+		j = -1;
+		while (dt->tab[path->path[i]][++j] != -1)
+			if (dt->tab[path->path[i]][j] == path->path[i + 1])
+				t = 1;
+		if (t == 0)
+			ft_printf("\nWRONG not neighbour \n");
+		j = -1;
+		while (++j < i)
+			if (path->path[i] == path->path[j])
+					ft_printf("\nWRONG Repeated link at positions %d, %d with"
+					"values %d, %d \n", i, j, path->path[i], path->path[j]);
+	}
+	return (0);
 }
 
-void    check_overlap(t_path *a, t_path *b)
+void	check_overlap(t_path *a, t_path *b)
 {
-    int     i;
-    int     j;
+	int	 i;
+	int	 j;
 
-    i = 0;
-    while (++i < a->depth - 1)
-    {
-        j = 0;
-        while (++j < b->depth - 1)
-        {
-            if (a->path[i] == b->path[j])
-                ft_printf("Paths overlaping at positions %d and %d with values %d and %d\n", i, j, a->path[i], b->path[j]);
-        }
-    }
+	i = 0;
+	while (++i < a->depth - 1)
+	{
+		j = 0;
+		while (++j < b->depth - 1)
+		{
+			if (a->path[i] == b->path[j])
+				ft_printf("Paths overlaping at positions %d and %d with values %d and %d\n", i, j, a->path[i], b->path[j]);
+		}
+	}
 }
 
-void     prt_check_possible(t_path **possible, t_data *dt)
+void	 prt_check_possible(t_path **possible, t_data *dt)
 {
-    int i;
-    int j;
-    int k;
+	int i;
+	int j;
+	int k;
 
-    ft_printf("Printing possible solutions\n\n");
-    i = 0;
-    while (possible[i])
-    {
-        if (i == 0)
-            ft_printf("Shortest path:\n");
-        else
-            ft_printf("Shortests %d paths:\n", i + 1);
-        j = -1;
-        while (++j < i + 1)
-        {
-            prt_path(&possible[i][j]);
-            check_path(&(possible[i][j]), dt);
-            k = -1;
-            while (++k < j)
-                check_overlap(&possible[i][k], &possible[i][j]);
-        }
-        ft_printf("\n");
-        i++;
-    }  
+	ft_printf("Printing possible solutions\n\n");
+	i = 0;
+	while (possible[i])
+	{
+		if (i == 0)
+			ft_printf("Shortest path:\n");
+		else
+			ft_printf("Shortests %d paths:\n", i + 1);
+		j = -1;
+		while (++j < i + 1)
+		{
+			prt_path(&possible[i][j]);
+			check_path(&(possible[i][j]), dt);
+			k = -1;
+			while (++k < j)
+				check_overlap(&possible[i][k], &possible[i][j]);
+		}
+		ft_printf("\n");
+		i++;
+	}  
 }

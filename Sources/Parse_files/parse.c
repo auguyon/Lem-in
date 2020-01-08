@@ -21,11 +21,11 @@ static void	get_info_link(t_info *info)
 	info->s_room = ft_strdup(info->line + i + 1);
 }
 
-void		parse_link(t_info *in, t_btree *groot)
+void		parse_link(int fd, t_info *in, t_btree *groot)
 {
 	if (in->error == 2)
 		in->error = 1;
-	while (in->line || get_next_line(0, &in->line))
+	while (in->line || get_next_line(fd, &in->line))
 	{
 		if (in->error == 1)
 			in->error = check_error_link(groot, in);
@@ -60,13 +60,13 @@ static int	get_ants(t_info *in)
 	return (ft_atoi(in->line));
 }
 
-t_btree		*parse_room(t_info *in, short code)
+t_btree		*parse_room(int fd, t_info *in, short code)
 {
 	t_btree	*groot;
 
 	groot = NULL;
 	in->error = 0;
-	while (get_next_line(0, &in->line))
+	while (get_next_line(fd, &in->line))
 	{
 		if (in->error == 1 && in->line[0] != '#' && in->line[1] != '#')
 			if ((in->error = check_error_room(groot, in, 0)) == 2)

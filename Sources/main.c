@@ -12,48 +12,37 @@
 
 #include "../Includes/lemin.h"
 
-t_data		*parser(void)
+t_data	*parser(int fd)
 {
-	t_data	 *dt;
-	t_info	 *info;
+	t_data	*dt;
+	t_info	*info;
 	t_btree	*groot;
 
 	init_struct_parse(&dt, &info);
-	groot = parse_room(info, 0);
-	parse_link(info, groot);
+	groot = parse_room(fd, info, 0);
+	parse_link(fd, info, groot);
 	check_error(info, groot);
 	btree_to_data(groot, info, dt);
 	free_btree_n_info(info, groot);
 	return (dt);
 }
 
-void		print_truc(t_data *dt)
+int		main(int ac, char **av)
 {
+	t_data	*dt;
 	int		i;
-	int		j;
+	int		fd;
 
-	i = 0;
-	j = 0;
-	while (i < dt->nb_rooms && !(j = 0))
+	i = 1;
+	while (i <= ac)
 	{
-		printf("Salle->%d Name->%s Nbr de nbs->%d\n", i, dt->name[i], dt->nbr[i]);
-		while(dt->tab[i][j] != -1)
-			printf("->%d ", dt->tab[i][j++]);
-		printf("\n");
+		if (ac > 1)
+			fd = open(av[i], O_RDONLY);
+		else
+			fd = 0;
 		i++;
+		dt = parser(fd);
+		solver(dt);
 	}
-	exit (0);
-}
-
-int		 main(int argc, char **argv)
-{
-	t_data	 *dt;
-
-	(void)argc;
-	(void)argv;
-	dt = parser();
-	printf("\nSolver\n");
-	solver(dt);
-	// while(1);
 	return (0);
 }
