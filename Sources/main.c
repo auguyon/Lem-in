@@ -22,7 +22,7 @@ t_data	*parser(int fd)
 	groot = parse_room(fd, info, 0);
 	parse_link(fd, info, groot);
 	check_error(info, groot);
-	btree_to_data(groot, info, dt);
+	btree_to_data(groot, info, dt, 1);
 	free_btree_n_info(info, groot);
 	return (dt);
 }

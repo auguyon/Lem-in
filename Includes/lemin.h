@@ -17,6 +17,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <stdio.h>
 
 typedef struct		s_link
 {
@@ -115,7 +116,7 @@ void				parse_link(int fd, t_info *in, t_btree *groot);
 int					check_error_link(t_btree *groot, t_info *info);
 void				btree_add_link(t_btree *start, t_btree *groot, char *find
 										, char *room);
-void				btree_to_data(t_btree *groot, t_info *info, t_data *dt);
+void				btree_to_data(t_btree *groot, t_info *info, t_data *dt, int nb);
 void				fill_to_neg(int *t, int count);
 void				check_error(t_info *in, t_btree *groot);
 void				free_btree_n_info(t_info *info, t_btree *groot);

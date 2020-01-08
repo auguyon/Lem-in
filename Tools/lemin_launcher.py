@@ -1,5 +1,4 @@
 import os
-import * from check_leaks.py
 from re import compile, findall
 from time import time
 
@@ -14,6 +13,8 @@ class f:
 
 def create_maps_files(arg, name):
 	i = 0;
+	if not os.path.exists("../maps"):
+		os.makedirs("../maps")
 	while i < 10:
 		os.system("./generator " + arg + " > ../maps/" + name + str(i))
 		i = i + 1;
@@ -47,7 +48,6 @@ def choice_maps():
 		D: Flow-thousand
 		E: Big
 		F: Big-superposition
-		G: Check Leaks with 5 maps each
 		Type your choice : """)
 	if choice == "A" or choice == "a":
 		create_maps("all")
@@ -67,8 +67,6 @@ def choice_maps():
 	elif choice == "F" or choice == "f":
 		create_maps("--big-superposition")
 		return 6
-	elif choice == "G" or choice == "g"
-
 	else:
 		print("You must only select either A, B, C, D, E, or F")
 		print("Please try again")

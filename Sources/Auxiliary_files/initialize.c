@@ -31,9 +31,8 @@ void		init_struct_parse(t_data **dt, t_info **i)
 void		initialize(t_layer **layer_p, int size)
 {
 	t_layer		*layer;
-	t_path		*p;
+	t_path		*p = NULL;
 
-	p = NULL;
 	if (!(layer = (t_layer*)malloc(sizeof(t_layer)))
 		|| !(p = (t_path*)malloc(sizeof(t_path)))
 		|| !(p->path = (int*)malloc(2 * sizeof(int)))

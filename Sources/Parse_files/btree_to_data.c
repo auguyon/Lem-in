@@ -76,16 +76,15 @@ static void		btree_prefix_count(t_btree *root, t_info *info, int *nb)
 		btree_prefix_count(root->right, info, nb);
 }
 
-void			btree_to_data(t_btree *groot, t_info *info, t_data *dt)
+void			btree_to_data(t_btree *groot, t_info *info, t_data *dt, int nb)
 {
 	dt->nb_rooms = info->rooms;
-	info->rooms = 0;
 	dt->ants = info->ants;
 	dt->best_move = info->best_move;
 	dt->error = info->error;
 	info->adr_start->nb = 0;
 	info->adr_end->nb = info->rooms - 1;
-	btree_prefix_count(groot, info, &(info->rooms));
+	btree_prefix_count(groot, info, &nb);
 	if (!(dt->tab = (int**)malloc(sizeof(int*) * dt->nb_rooms + 1)))
 		ft_malloc_error();
 	ft_bzero(dt->tab, sizeof(int*) * dt->nb_rooms + 1);
