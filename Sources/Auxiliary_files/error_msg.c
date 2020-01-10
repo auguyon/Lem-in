@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_msg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Aurelien <Aurelien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/13 21:41:32 by Aurelien         ###   ########.fr       */
+/*   Updated: 2020/01/10 15:55:29 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_error(short error)
 	else if (error == -3)
 		write(1, "\tDash in name is forbidden.\n", 28);
 	else if (error == -11)
-		write(1, "\tNo dash for link instruction.\n", 31);
+		write(1, "\tBad files\n", 11);
 	else if (error == -6)
 		write(1, "\tNo ants\n", 9);
 	else if (error == -7)
@@ -38,4 +38,27 @@ void	print_error(short error)
 	else if (error == -5)
 		write(1, "\tWrong room name for link\n", 26);
 	write(1, "\033[0m", 4);
+}
+
+void		check_error(t_info *in, t_btree *groot)
+{
+	if (in->line == NULL)
+	{
+		print_error(-11);
+		free_btree_n_info(in, groot);
+		exit(0);
+	}
+	else if ((in->error <= -1 && in->error >= -3)
+		|| (in->error <= -6 && in->error >= -9))
+	{
+		print_error(in->error);
+		free_btree_n_info(in, groot);
+		exit(0);
+	}
+	else if (!in->adr_start || !in->adr_end)
+	{
+		print_error(-7);
+		free_btree_n_info(in, groot);
+		exit(0);
+	}
 }

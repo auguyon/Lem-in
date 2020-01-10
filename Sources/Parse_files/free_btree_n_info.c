@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_btree_n_info.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Aurelien <Aurelien@student.42.fr>          +#+  +:+       +#+        */
+/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/13 21:42:00 by Aurelien         ###   ########.fr       */
+/*   Updated: 2020/01/09 20:07:51 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,26 @@ static void		btree_apply_postfix(t_btree *root)
 	}
 }
 
+static void		free_info(t_info *info)
+{
+	t_map *tmp;
+
+	if (info->map)
+	{
+		while (info->map->next != NULL)
+		{
+			tmp = info->map->next;
+			free(info->map);
+			info->map = tmp;
+		}
+		free(info->map);
+	}
+	free(info);
+}
+
 void			free_btree_n_info(t_info *info, t_btree *groot)
 {
 	btree_apply_postfix(groot);
-	free(info);
+	if (info->error == 1)
+		free_info(info);
 }

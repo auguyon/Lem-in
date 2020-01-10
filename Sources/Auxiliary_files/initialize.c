@@ -6,7 +6,7 @@
 /*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 12:05:55 by ftrujill          #+#    #+#             */
-/*   Updated: 2020/01/03 15:51:04 by auguyon          ###   ########.fr       */
+/*   Updated: 2020/01/09 20:04:18 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void		init_struct_parse(t_data **dt, t_info **i)
 	if (!(info = (t_info*)malloc(sizeof(t_info))))
 		ft_malloc_error();
 	ft_bzero(info, sizeof(t_info));
-	info->error = 1;
 	if (!(data = (t_data*)malloc(sizeof(t_data))))
 		ft_malloc_error();
 	ft_bzero(data, sizeof(t_data));

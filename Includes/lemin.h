@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:49:39 by auguyon           #+#    #+#             */
-/*   Updated: 2019/12/20 11:43:18 by ftrujill         ###   ########.fr       */
+/*   Updated: 2020/01/09 20:24:32 by auguyon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <stdio.h>
+
+typedef struct 		s_map
+{
+	struct s_map	*next;
+	char			*line;
+}					t_map;
 
 typedef struct		s_link
 {
@@ -40,6 +46,8 @@ typedef struct		s_btree
 
 typedef	struct		s_info
 {
+	struct s_map	*map;
+	struct s_map	*map_start;
 	struct s_btree	*adr_start;
 	struct s_btree	*adr_end;
 	char			*line;

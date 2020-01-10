@@ -81,7 +81,7 @@ def launch(name):
 	print("\033[32m\tCorrection of " + name[:-1] + " in work.\033[0m")
 	while i < 10:
 		t1 = time()
-		os.system("cat " + "../maps/" + name + str(i) + "| .././lem-in > " + "../Result/result" + name + str(i))
+		os.system(".././lem-in " + "../maps/" + name + str(i) + " > " + "../Result/result-" + name + str(i))
 		timer.append(round(time() - t1, 2))
 		i = i + 1;
 	correction(name, timer)
@@ -90,13 +90,14 @@ def correction(name, timer):
 	i = 0;
 	values = []
 	while i < 10:
-		with open("../Result/result" + name + str(i), "r") as f:
+		with open("../Result/result-" + name + str(i), "r") as f:
 		    for line in f.readlines():
 		    	if (line.startswith("The right solution with ")):
 			    	values = findall(g_pattern, line)
 		result1 = (("\033[32m" + values[2] + "\033[0m") if int(values[2]) <= int(values[3]) else ("\033[31m" + values[2] + "\033[0m"))
 		result2 = (("\033[32m" + values[3] + "\033[0m") if int(values[2]) > int(values[3]) else ("\033[31m" + values[3] + "\033[0m"))
-		print(name[:-1] + " files n'" + str(i) + " : " + values[0] + " ant(s) lemin -> " + result1 + " files -> " + result2 + " in " + str(timer[i]) + " sec(s)")
+		difference = (" with a difference of " + (("\033[32m" + str(int(values[2]) - int(values[3])) + "\033[0m") if int(values[2]) - int(values[3]) <= 0 else ("\033[31m" + str(int(values[2]) - int(values[3])) + "\033[0m")))
+		print(name[:-1] + " files n'" + str(i) + " : " + values[0] + " ant(s) lemin -> " + result1 + " files -> " + result2 + difference + " in " + str(timer[i]) + " sec(s)")
 		i = i + 1;
 	print()
 
