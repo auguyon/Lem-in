@@ -17,13 +17,14 @@ static void		add_line(t_map **map, char *line, t_map **start)
 	t_map	*new;
 	t_map	*current;
 
+	// printf("line->{%s}\n", line);
 	current = *map;
 	if (!(new = (t_map*)malloc(sizeof(t_map))))
 		ft_malloc_error();
 	ft_bzero(new, sizeof(t_map));
 	new->line = line;
 	new->next = NULL;
-	if (map == NULL || *map == NULL)
+	if (*map == NULL)
 	{
 		*map = new;
 		*start = new;
@@ -60,9 +61,12 @@ void		parse_link(int fd, t_info *in, t_btree *groot)
 			free(in->f_room);
 			free(in->s_room);
 		}
+		in->error = (in->error == 3 ? 1 : in->error);
 		if (in->error == 1)
 			add_line(&(in->map), in->line, &(in->map_start));
 	}
+	if (in->line)
+		free(in->line);
 }
 
 static int	get_ants(t_info *in)
@@ -88,7 +92,6 @@ t_btree		*parse_room(int fd, t_info *in, short code)
 	groot = NULL;
 	while ((in->error == 0 || in->error == 1) && get_next_line(fd, &in->line) && in->line)
 	{
-		printf("line->%s\n", in->line);
 		if (in->error == 1)
 			if ((in->error = check_error_room(groot, in, 0)) == 2)
 				break ;

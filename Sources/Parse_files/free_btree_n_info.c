@@ -43,7 +43,7 @@ static void		btree_apply_postfix(t_btree *root)
 	}
 }
 
-static void		free_info(t_info *info)
+static void			free_info(t_info *info)
 {
 	t_map *tmp;
 
@@ -52,9 +52,11 @@ static void		free_info(t_info *info)
 		while (info->map->next != NULL)
 		{
 			tmp = info->map->next;
+			free(info->map->line);
 			free(info->map);
 			info->map = tmp;
 		}
+		free(info->map->line);
 		free(info->map);
 	}
 	free(info);
@@ -63,6 +65,5 @@ static void		free_info(t_info *info)
 void			free_btree_n_info(t_info *info, t_btree *groot)
 {
 	btree_apply_postfix(groot);
-	if (info->error == 1)
-		free_info(info);
+	free_info(info);
 }

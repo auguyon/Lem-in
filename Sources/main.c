@@ -33,8 +33,7 @@ t_data	*parser(int fd)
 	parse_link(fd, info, groot);
 	check_error(info, groot);
 	btree_to_data(groot, info, dt, 1);
-	if (info->error == 1 || info->error == 3)
-		print_map(info->map_start);
+	print_map(info->map_start);
 	free_btree_n_info(info, groot);
 	return (dt);
 }
