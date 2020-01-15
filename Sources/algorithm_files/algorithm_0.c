@@ -6,7 +6,7 @@
 /*   By: ftrujill <ftrujill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:41:56 by ftrujill          #+#    #+#             */
-/*   Updated: 2020/01/15 18:44:45 by ftrujill         ###   ########.fr       */
+/*   Updated: 2020/01/15 19:08:45 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		order_possible(t_path **possible)
 	}
 }
 
-int			is_trivial(t_data *dt)
+int			is_trivial(t_data *dt, t_info *info)
 {
 	int		i;
 	int		n;
@@ -46,8 +46,9 @@ int			is_trivial(t_data *dt)
 	n = 0;
 	while (i < dt->nbr[0])
 		n = (dt->tab[0][i++] == dt->nb_rooms - 1) ? 1 : n;
-	if (!n)
+	if (!n || dt->ants == 0)
 		return (0);
+	print_map(info->map_start);
 	i = 0;
 	while (i + 1 < dt->ants)
 		ft_printf("L%d-%s ", i++, dt->name[dt->nb_rooms - 1]);
@@ -83,7 +84,8 @@ int			mbfs(t_data *dt, t_solution *solution, t_path **possible)
 	return (1);
 }
 
-int			solver_2(t_data *dt, t_solution *solution, t_path **possible)
+int			solver_2(t_data *dt, t_solution *solution, t_path **possible,
+						t_info *info)
 {
 	int *path_nbrs;
 	int *ant_first;
@@ -92,6 +94,9 @@ int			solver_2(t_data *dt, t_solution *solution, t_path **possible)
 	while (mbfs(dt, solution, possible))
 	{
 	}
+	if (solution->max_length == 0)
+		return (0);
+	print_map(info->map_start);
 	dt->nbr_paths = 0;
 	dt->nbr_steps = dt->ants + possible[0][0].depth - 2;
 	order_possible(possible);
@@ -105,10 +110,10 @@ int			solver_2(t_data *dt, t_solution *solution, t_path **possible)
 	free(path_nbrs);
 	free(ant_first);
 	free_all(dt, solution, possible);
-	return (0);
+	return (1);
 }
 
-int			solver(t_data *dt)
+int			solver(t_data *dt, t_info *info)
 {
 	int			i;
 	int			size;
@@ -116,7 +121,7 @@ int			solver(t_data *dt)
 	t_path		**possible;
 
 	size = dt->nb_rooms;
-	if (is_trivial(dt))
+	if (is_trivial(dt, info))
 		return (0);
 	if (!(solution = (t_solution*)ft_memalloc(sizeof(t_solution)))
 		|| !(solution->used_vertices = (int**)ft_memalloc(size * sizeof(int*)))
@@ -133,5 +138,5 @@ int			solver(t_data *dt)
 	solution->max_length = 0;
 	solution->nbr_paths = 0;
 	solution->size = size;
-	return (solver_2(dt, solution, possible));
+	return (solver_2(dt, solution, possible, info));
 }

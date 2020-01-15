@@ -6,13 +6,13 @@
 /*   By: ftrujill <ftrujill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2020/01/15 18:33:13 by ftrujill         ###   ########.fr       */
+/*   Updated: 2020/01/15 19:07:06 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/lemin.h"
 
-static void	print_map(t_map *map)
+void		print_map(t_map *map)
 {
 	while (map->next != NULL)
 	{
@@ -22,7 +22,7 @@ static void	print_map(t_map *map)
 	ft_putendl(map->line);
 }
 
-t_data		*parser(int fd)
+void		parser(int fd)
 {
 	t_data	*dt;
 	t_info	*info;
@@ -33,14 +33,12 @@ t_data		*parser(int fd)
 	parse_link(fd, info, groot);
 	check_error(info, groot);
 	btree_to_data(groot, info, dt, 1);
-	print_map(info->map_start);
+	solver(dt, info);
 	free_btree_n_info(info, groot);
-	return (dt);
 }
 
 int			main(int ac, char **av)
 {
-	t_data	*dt;
 	int		fd;
 	int		i;
 
@@ -52,8 +50,7 @@ int			main(int ac, char **av)
 			if ((fd = open(av[i], O_RDONLY)) < 3)
 				return (0);
 		i++;
-		dt = parser(fd);
-		solver(dt);
+		parser(fd);
 	}
 	return (0);
 }

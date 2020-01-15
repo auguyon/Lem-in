@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ftrujill <ftrujill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:49:39 by auguyon           #+#    #+#             */
-/*   Updated: 2020/01/09 20:24:32 by auguyon          ###   ########.fr       */
+/*   Updated: 2020/01/15 18:59:36 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ void				print_error(short error);
 /*
 ** Printing
 */
+void				print_map(t_map *map);
 void				prt_g(int **g, int size);
 void				prt_path(t_path *path);
 void				prt_layer(t_layer *layer);
@@ -152,7 +153,7 @@ void				*ft_realloc(void *ptr, size_t size);
 /*
 ** Algorithm
 */
-int					solver(t_data *dt);
+int					solver(t_data *dt, t_info *info);
 void				initialize(t_layer **layer, int size);
 void				initialize_new_layer(t_layer *new_layer, t_layer *layer
 											, int *ngbs);
