@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   end_free.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ftrujill <ftrujill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 12:22:45 by ftrujill          #+#    #+#             */
-/*   Updated: 2019/12/15 00:49:04 by ftrujill         ###   ########.fr       */
+/*   Updated: 2020/01/15 18:36:11 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,29 +75,4 @@ void		free_possible(t_path **possible)
 		free(possible[i]);
 	}
 	free(possible);
-}
-
-void		free_dt(t_data *dt)
-{
-	int i;
-
-	i = 0;
-	while (i < dt->nb_rooms)
-	{
-		free(dt->name[i]);
-		free(dt->tab[i++]);
-	}
-	free(dt->nbr);
-	free(dt->x);
-	free(dt->y);
-	free(dt->name);
-	free(dt->tab);
-	free(dt);
-}
-
-void		free_all(t_data *dt, t_solution *solution, t_path **possible)
-{
-	free_dt(dt);
-	free_solution(solution);
-	free_possible(possible);
 }

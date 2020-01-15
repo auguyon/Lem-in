@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ftrujill <ftrujill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2020/01/10 15:51:56 by auguyon          ###   ########.fr       */
+/*   Updated: 2020/01/15 18:38:05 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static int	its_comment(char *line, unsigned int *best_move)
 
 	if (line[0] == '#' && line[1] == '#')
 		return (3);
-	else if ((i = ft_strspn("#Here is the number of lines required: ", line)) == 39)
+	else if ((i = ft_strspn("#Here is the number of lines required: ", line))
+				== 39)
 	{
 		*(best_move) = ft_atoi(&line[i]);
 		return (3);

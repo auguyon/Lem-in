@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   aux_print.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ftrujill <ftrujill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 12:07:26 by ftrujill          #+#    #+#             */
-/*   Updated: 2020/01/06 14:56:42 by auguyon          ###   ########.fr       */
+/*   Updated: 2020/01/15 15:59:23 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ void	prt_g(int **g, int size)
 	ft_printf("\n");
 }
 
-void		prt_path(t_path *path)
+void	prt_path(t_path *path)
 {
-	int i = 0;
+	int i;
 
+	i = 0;
 	ft_printf("Endpoint: %d, Length: %d, Path: ", path->endpoint, path->depth);
 	while (i < path->depth)
 		ft_printf("%d ", path->path[i++]);
@@ -44,15 +45,15 @@ void		prt_path(t_path *path)
 	ft_printf("\n");
 }
 
-void		prt_layer(t_layer *layer)
+void	prt_layer(t_layer *layer)
 {
-	int	 i;
+	int	i;
 
 	i = 0;
 	ft_printf("\nSize %d, nbr of paths %d, sol_depth %d, min_depth %d\n",
 		layer->size, layer->nbr_paths, layer->sol_depth, layer->min_depth);
 	while (i < layer->nbr_paths)
-		prt_path(&(layer->paths[i++]));	
+		prt_path(&(layer->paths[i++]));
 	i = 0;
 }
 

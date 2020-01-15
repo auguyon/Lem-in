@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algorithm_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ftrujill <ftrujill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 09:39:54 by ftrujill          #+#    #+#             */
-/*   Updated: 2019/12/20 11:45:54 by ftrujill         ###   ########.fr       */
+/*   Updated: 2020/01/15 17:54:29 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,25 +58,33 @@ void	add_path(t_layer *new_layer, t_path *path, int w, int used_edge)
 	fill_new_layer(new_layer, path, w, used_edge);
 }
 
-int	 j_step(t_path *path, t_layer *new_layer, t_solution *solution, int w)
+int		j_step(t_path *path, t_layer *new_layer, t_solution *solution, int w)
 {
+	int		used_edge;
+	int		*u_end;
+	int		*u_new;
+
 	if (path->endpoint == 0 && solution->used_vertices[w][0])
-		return(1);
+		return (1);
+	u_end = solution->used_vertices[path->endpoint];
+	u_new = solution->used_vertices[w];
+	used_edge = (u_end[0] && u_new[0] && u_end[1] == u_new[1]
+		&& u_end[2] == u_new[2] + 1) ? 1 : 0;
 	if (new_layer->vtd[w] == 0)
-		add_path(new_layer, path, w, 0);
+		add_path(new_layer, path, w, used_edge);
 	else if (new_layer->vtd[w] > path->depth + 1)
 	{
-		add_path(new_layer, path, w, 0);
+		add_path(new_layer, path, w, used_edge);
 		new_layer->upd[w] = 1;
-	}   
+	}
 	return (0);
 }
 
-int	 i_step(t_path *path, t_layer *new_layer, t_solution *solution)
+int		i_step(t_path *path, t_layer *new_layer, t_solution *solution)
 {
-	int	 *u_end;
-	int	 *u_prec;
-	t_path  p_end;
+	int		*u_end;
+	int		*u_prec;
+	t_path	p_end;
 
 	if (path->endpoint == new_layer->size - 1)
 	{
@@ -92,22 +100,21 @@ int	 i_step(t_path *path, t_layer *new_layer, t_solution *solution)
 	u_prec = solution->used_vertices[path->path[ft_max(0, path->depth - 2)]];
 	p_end = solution->paths[u_end[1]];
 	if (path->depth > 1 && u_end[0] && (!(u_prec[0] && u_prec[1] == u_end[1])
-		|| (u_prec[0] && u_prec[1] == u_end[1] && path->path[path->depth - 2] 
+		|| (u_prec[0] && u_prec[1] == u_end[1] && path->path[path->depth - 2]
 			!= p_end.path[u_end[2] + 1])))
-	{
 		if (p_end.path[u_end[2] - 1] != 0)
 			add_path(new_layer, path, p_end.path[(u_end[2]) - 1], 1);
-		return (1);
-	}
-	return (0);
+	return ((path->depth > 1 && u_end[0] && (!(u_prec[0] && u_prec[1] ==
+		u_end[1]) || (u_prec[0] && u_prec[1] == u_end[1] &&
+		path->path[path->depth - 2] != p_end.path[u_end[2] + 1]))) ? 1 : 0);
 }
 
 void	next_layer(int **g, int *nbr, t_layer **layer, t_solution *solution)
 {
-	int		 i;
-	int		 j;
-	t_path	  *path;
-	t_layer	 *new_layer;
+	int			i;
+	int			j;
+	t_path		*path;
+	t_layer		*new_layer;
 
 	if (!(new_layer = (t_layer*)ft_memalloc(sizeof(t_layer))))
 		ft_malloc_error();

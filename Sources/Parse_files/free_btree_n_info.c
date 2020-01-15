@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_btree_n_info.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ftrujill <ftrujill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2020/01/09 20:07:51 by auguyon          ###   ########.fr       */
+/*   Updated: 2020/01/15 18:37:43 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void		btree_apply_postfix(t_btree *root)
 	}
 }
 
-static void			free_info(t_info *info)
+static void		free_info(t_info *info)
 {
 	t_map *tmp;
 

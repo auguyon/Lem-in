@@ -3,37 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   algorithm_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ftrujill <ftrujill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 21:20:39 by ftrujill          #+#    #+#             */
-/*   Updated: 2019/12/20 11:30:49 by ftrujill         ###   ########.fr       */
+/*   Updated: 2020/01/15 15:53:32 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/lemin.h"
 
-void		order_solution(t_solution *solution)
+void	order_solution(t_solution *solution)
 {
-	int	 i;
-	t_path  tmp;
+	int		i;
+	t_path	tmp;
 
 	i = 0;
 	while (i < solution->nbr_paths - 1)
 	{
 		if (solution->paths[i].depth > solution->paths[i + 1].depth)
-			{
-				tmp = solution->paths[i];
-				solution->paths[i] = solution->paths[i + 1];
-				solution->paths[i + 1] = tmp;
-				i = 0;
-			}
+		{
+			tmp = solution->paths[i];
+			solution->paths[i] = solution->paths[i + 1];
+			solution->paths[i + 1] = tmp;
+			i = 0;
+		}
 		else
 			i++;
 	}
-   solution->max_length = solution->paths[solution->nbr_paths - 1].depth;
+	solution->max_length = solution->paths[solution->nbr_paths - 1].depth;
 }
 
-void		update(t_layer *new_layer, int *visited, int *updated)
+void	update(t_layer *new_layer, int *visited, int *updated)
 {
 	int i;
 	int j;
@@ -54,13 +54,13 @@ void		update(t_layer *new_layer, int *visited, int *updated)
 			{
 				if (new_layer->paths[j].path[k] == i
 					&& new_layer->paths[j].depths[k] > visited[i])
-						new_layer->paths[j].endpoint = new_layer->size;
+					new_layer->paths[j].endpoint = new_layer->size;
 			}
 		}
 	}
 }
 
-void		min_depth(t_layer *layer)
+void	min_depth(t_layer *layer)
 {
 	int i;
 
@@ -77,8 +77,8 @@ void		min_depth(t_layer *layer)
 void	update_solution_aux(t_path *new_path, t_solution *solution,
 							t_path **possible)
 {
-	int	 i;
-	int	 j;
+	int	i;
+	int	j;
 
 	i = -1;
 	while (++i < new_path->depth)
@@ -104,8 +104,8 @@ void	update_solution_aux(t_path *new_path, t_solution *solution,
 
 void	update_solution(t_path *path, t_solution *solution, t_path **possible)
 {
-	int	 i;
-	t_path  *new_path;
+	int		i;
+	t_path	*new_path;
 
 	new_path = &solution->paths[solution->nbr_paths];
 	copy_path(path, new_path);
@@ -116,7 +116,7 @@ void	update_solution(t_path *path, t_solution *solution, t_path **possible)
 		{
 			merge_paths(solution, i, solution->used_vertices[new_path->path[i]]
 				[1], solution->used_vertices[new_path->path[i]][2]);
-			i = new_path->depth - 2;;
+			i = new_path->depth - 2;
 		}
 		else
 			i--;

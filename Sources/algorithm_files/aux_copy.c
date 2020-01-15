@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   aux_copy.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ftrujill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ftrujill <ftrujill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 12:10:28 by ftrujill          #+#    #+#             */
-/*   Updated: 2019/12/16 23:17:02 by ftrujill         ###   ########.fr       */
+/*   Updated: 2020/01/15 16:30:01 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@ void	*ft_realloc(void *ptr, size_t size)
 	return (newptr);
 }
 
-void		deep_copy_path(t_path *source, t_path **dest_p, int size)
+void	deep_copy_path(t_path *source, t_path **dest_p, int size)
 {
 	t_path *dest;
 
-	if (!(dest = (*dest_p = (t_path*)ft_memalloc(sizeof(t_path))))
-		||!(dest->path = (int*)ft_realloc(source->path,
+	if (!(*dest_p = (t_path*)ft_memalloc(sizeof(t_path))))
+		ft_malloc_error();
+	dest = *dest_p;
+	if (!(dest->path = (int*)ft_realloc(source->path,
 								sizeof(int) * source->depth))
 		|| !(dest->depths = (int*)ft_realloc(source->depths,
 								sizeof(int) * source->depth)))
@@ -40,7 +42,7 @@ void		deep_copy_path(t_path *source, t_path **dest_p, int size)
 		ft_malloc_error();
 }
 
-void		copy_path(t_path *source, t_path *dest)
+void	copy_path(t_path *source, t_path *dest)
 {
 	dest->endpoint = source->endpoint;
 	dest->depth = source->depth;
@@ -51,14 +53,14 @@ void		copy_path(t_path *source, t_path *dest)
 		ft_malloc_error();
 }
 
-void		copy_solution(t_layer *new_layer, t_path *path)
+void	copy_solution(t_layer *new_layer, t_path *path)
 {
 	int j;
 	int n;
 
 	n = new_layer->nbr_paths;
 	if (!(new_layer->paths[n].path =
-		(int*)ft_memalloc((path->depth)* sizeof(int)))
+		(int*)ft_memalloc((path->depth) * sizeof(int)))
 		|| !(new_layer->paths[n].depths =
 		(int*)ft_memalloc((path->depth) * sizeof(int))))
 		ft_malloc_error();

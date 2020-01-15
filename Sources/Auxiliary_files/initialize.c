@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ftrujill <ftrujill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 12:05:55 by ftrujill          #+#    #+#             */
-/*   Updated: 2020/01/09 20:04:18 by auguyon          ###   ########.fr       */
+/*   Updated: 2020/01/15 18:40:38 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ void		init_struct_parse(t_data **dt, t_info **i)
 void		initialize(t_layer **layer_p, int size)
 {
 	t_layer		*layer;
-	t_path		*p = NULL;
+	t_path		*p;
 
+	p = NULL;
 	if (!(layer = (t_layer*)malloc(sizeof(t_layer)))
 		|| !(p = (t_path*)malloc(sizeof(t_path)))
 		|| !(p->path = (int*)malloc(2 * sizeof(int)))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_msg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ftrujill <ftrujill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2020/01/10 15:55:29 by auguyon          ###   ########.fr       */
+/*   Updated: 2020/01/15 18:33:43 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	print_error(short error)
 	write(1, "\033[0m", 4);
 }
 
-void		check_error(t_info *in, t_btree *groot)
+void	check_error(t_info *in, t_btree *groot)
 {
 	if (in->line == NULL)
 	{

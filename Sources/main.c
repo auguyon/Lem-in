@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ftrujill <ftrujill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2020/01/10 15:47:17 by auguyon          ###   ########.fr       */
+/*   Updated: 2020/01/15 18:33:13 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	print_map(t_map *map)
 	ft_putendl(map->line);
 }
 
-t_data	*parser(int fd)
+t_data		*parser(int fd)
 {
 	t_data	*dt;
 	t_info	*info;
@@ -38,7 +38,7 @@ t_data	*parser(int fd)
 	return (dt);
 }
 
-int		main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	t_data	*dt;
 	int		fd;

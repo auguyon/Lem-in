@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ftrujill <ftrujill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:47:57 by auguyon           #+#    #+#             */
-/*   Updated: 2020/01/10 15:52:38 by auguyon          ###   ########.fr       */
+/*   Updated: 2020/01/15 18:39:43 by ftrujill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/lemin.h"
 
-static void		add_line(t_map **map, char *line, t_map **start)
+static void	add_line(t_map **map, char *line, t_map **start)
 {
 	t_map	*new;
 	t_map	*current;
 
-	// printf("line->{%s}\n", line);
 	current = *map;
 	if (!(new = (t_map*)malloc(sizeof(t_map))))
 		ft_malloc_error();
@@ -90,7 +89,8 @@ t_btree		*parse_room(int fd, t_info *in, short code)
 	t_btree	*groot;
 
 	groot = NULL;
-	while ((in->error == 0 || in->error == 1) && get_next_line(fd, &in->line) && in->line)
+	while ((in->error == 0 || in->error == 1) &&
+		get_next_line(fd, &in->line) && in->line)
 	{
 		if (in->error == 1)
 			if ((in->error = check_error_room(groot, in, 0)) == 2)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: auguyon <auguyon@student.42.fr>            +#+  +:+       +#+         #
+#    By: ftrujill <ftrujill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/14 15:52:13 by nvienot           #+#    #+#              #
-#    Updated: 2020/01/03 15:54:10 by auguyon          ###   ########.fr        #
+#    Updated: 2020/01/15 18:36:48 by ftrujill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ parse	+= btree_to_data.c btree_new_link.c btree_new_room.c btree_rotate.c
 parse	:= $(addprefix $(prsdir)/, $(parse))
 
 auxdir	:= Sources/Auxiliary_files
-aux		:= end_free.c error_msg.c initialize.c
+aux		:= end_free.c end_free_2.c error_msg.c initialize.c
 aux		:= $(addprefix $(auxdir)/, $(aux))
 
 algodir	:= Sources/Algorithm_files
