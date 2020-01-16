@@ -61,54 +61,52 @@ int			check_error_link(t_btree *groot, t_info *info)
 	return (verif_room_name(groot, info->line));
 }
 
-static int	check_error_room_two(t_btree *groot, char *line, int i, int y)
+int			check_error_room(t_btree *groot, t_info *in, int j)
 {
-	char	*name;
-	int		j;
-	int		x;
-
-	j = 0;
-	x = ft_atoi(&line[i]);
-	while (j <= i)
-	{
-		if (line[j] == '-')
-			return (-3);
-		j++;
-	}
-	j = 0;
-	name = ft_strndup(line, i);
-	if (btree_search_name(groot, &j, name) && j == 1)
-	{
-		free(name);
-		return (-8);
-	}
-	free(name);
-	if (btree_search_pos(groot, &j, x, y) && j == 1)
-		return (-9);
-	return (1);
-}
-
-int			check_error_room(t_btree *groot, t_info *in, int y)
-{
-	int		i;
+	char	**tab;
 
 	if (in->line[0] == '#')
 		return (its_comment(in->line, &(in->best_move)));
 	if (ft_count_c(in->line, '-') == 1)
 		return (2);
-	if (!(i = ft_strlen(in->line)))
+	if (!(ft_strlen(in->line)))
 		return (-4);
-	if (!ft_isdigit(in->line[i - 1]))
+	tab = ft_strsplit(in->line, ' ');
+	if (ft_count_c(tab[0], '-'))
+		return (-3);
+	if (btree_search_name(groot, &j, tab[0]) && j == 1)
+		return (-8);
+	free(tab[0]);
+	if (!(j = 0) && !tab[1] && !tab[2])
 		return (-1);
-	while (in->line[i] != ' ')
-		i--;
-	y = ft_atoi(&in->line[i + 1]);
-	i--;
-	if (!ft_isdigit(in->line[i]))
-		return (-1);
-	while (in->line[i] && in->line[i] != ' ')
-		i--;
-	if (i <= 0)
-		return (-2);
-	return (check_error_room_two(groot, in->line, i, y));
+	if (ft_isint(tab[1]) != 2 && ft_isint(tab[2]) != 2)
+		return (-13);
+	in->x = ft_utoi(tab[1]);
+	in->y = ft_utoi(tab[2]);
+	if (btree_search_pos(groot, &j, in->x, in->y) && j == 1)
+		return (-9);
+	return (1);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

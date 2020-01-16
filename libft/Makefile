@@ -55,7 +55,7 @@ str		+= ft_strstr.c ft_strnstr.c ft_strndup.c ft_strncat.c  ft_strlen.c
 str		+= ft_strspn.c ft_strnjoin.c ft_strncpy.c ft_strmultidel.c ft_strlcat.c
 str 	+= ft_striteri.c ft_strclr.c ft_strcat.c ft_striter.c ft_strcspn.c
 str		+= ft_strequ.c ft_strcpy.c ft_strccmp.c ft_strchr.c ft_strjoin_free.c
-str		+= ft_strclen.c ft_strcdup.c ft_strrev.c ft_strlower.c
+str		+= ft_strclen.c ft_strcdup.c ft_strrev.c ft_strlower.c ft_isint.c
 str		:= $(addprefix $(strdir)/, $(str))
 
 toadir	:= toa
@@ -70,7 +70,7 @@ toa		:= $(addprefix $(toadir)/, $(toa))
 
 utildir	:= utility
 util	:= ft_atoi.c ft_atoi_base.c ft_isdigit.c ft_min.c ft_max.c ft_abs.c
-util	+= ft_count_c.c ft_fill_nb.c ft_malloc_error.c
+util	+= ft_count_c.c ft_fill_nb.c ft_malloc_error.c ft_utoi.c ft_atoll.c
 util	:= $(addprefix $(utildir)/, $(util))
 
 gnldir	:= Get_Next_Line

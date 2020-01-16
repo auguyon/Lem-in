@@ -24,13 +24,15 @@ void	print_error(short error)
 	else if (error == -11)
 		write(1, "\tBad files\n", 11);
 	else if (error == -6)
-		write(1, "\tNo ants\n", 9);
+		write(1, "\tOnly positive number(int) for ants.\n", 37);
 	else if (error == -7)
 		write(1, "\tNo start or end\n", 17);
 	else if (error == -8)
 		write(1, "\tRoom name already used.\n", 25);
 	else if (error == -9)
 		write(1, "\tX and Y already used.\n", 23);
+	else if (error == -13)
+		write(1, "\tOnly positive number(int) for X or Y.\n", 39);
 	else if (error == -10)
 		write(1, "\tNo path found.\n", 16);
 	else if (error == -4)

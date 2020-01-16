@@ -73,12 +73,10 @@ static int	get_ants(t_info *in)
 	int		i;
 
 	i = 0;
-	while (ft_isdigit(in->line[i]))
-		i++;
-	if (in->line[i] != '\0' || (in->line[0] == '0' && in->line[1] == '\0'))
+	if (ft_isint(in->line) != 2)
 	{
 		in->error = -6;
-		return (1);
+		return (0);
 	}
 	in->error = 1;
 	return (ft_atoi(in->line));

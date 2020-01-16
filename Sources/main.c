@@ -33,6 +33,7 @@ void		parser(int fd)
 	parse_link(fd, info, groot);
 	check_error(info, groot);
 	btree_to_data(groot, info, dt, 1);
+	printf("error->{%d}\n", info->error);
 	solver(dt, info);
 	free_btree_n_info(info, groot);
 }
