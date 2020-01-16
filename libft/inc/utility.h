@@ -19,8 +19,8 @@ int		ft_isdigit(char c);
 int		ft_max(int a, int b);
 int		ft_min(int a, int b);
 int		ft_abs(int x);
-int     ft_count_c(const char *line, char c);
-void    ft_fill_nb(int *t, int nb, int size);
-void    ft_malloc_error();
+int		ft_count_c(const char *line, char c);
+void	ft_fill_nb(int *t, int nb, int size);
+void	ft_malloc_error();
 
 #endif

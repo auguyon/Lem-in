@@ -28,4 +28,5 @@ void	ft_strrev(char *str)
 		str[len - 1 - i] = str[i];
 		str[i++] = c;
 	}
+	return ;
 }

@@ -13,8 +13,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void    ft_malloc_error()
+void	ft_malloc_error(void)
 {
-    write(1, "\033[31mMalloc failed\n\033[0m", 22);
-    exit(0);
+	write(1, "\033[31mMalloc failed\n\033[0m", 22);
+	exit(0);
 }

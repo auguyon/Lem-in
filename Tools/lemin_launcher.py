@@ -1,8 +1,12 @@
 import os
 from re import compile, findall
-from time import time
+from time import time, sleep
 
 g_pattern = compile(r'\d+')
+maps_path = "/Users/auguyon/Documents/lemin/maps"
+gen_path = "/Users/auguyon/Documents/lemin/Tools/./generator "
+result_path = "/Users/auguyon/Documents/lemin/Result"
+lemin_path = "/Users/auguyon/Documents/lemin/./lem-in "
 
 class f:
 	one = "flow-one_"
@@ -12,30 +16,31 @@ class f:
 	big_superposition = "big-superposition_"
 
 def create_maps_files(arg, name):
-	i = 0;
-	if not os.path.exists("../maps"):
-		os.makedirs("../maps")
+	i = 0
+	if not os.path.exists(maps_path):
+		os.makedirs(maps_path)
 	while i < 10:
-		os.system("./generator " + arg + " > ../maps/" + name + str(i))
-		i = i + 1;
+		os.system(gen_path + arg + " > " + maps_path + "/" + name + str(i))
+		i = i + 1
+		sleep(1)
 	print("\033[32mMaps " + name[:-1] + " created 10 times.\033[0m")
 
 def create_maps(name):
 	os.system("clear")
 	if name == "all" or name == "--flow-one":
-		if not os.path.isfile("../maps/flow-one_0"):
+		if not os.path.isfile(maps_path + "/flow-one_0"):
 			create_maps_files("--flow-one", f.one)
 	if name == "all" or name == "--flow-ten":
-		if not os.path.isfile("../maps/flow-ten_0"):
+		if not os.path.isfile(maps_path + "/flow-ten_0"):
 			create_maps_files("--flow-ten", f.ten)
 	if name == "all" or name == "--flow-thousand":
-		if not os.path.isfile("../maps/flow-thousand_0"):
+		if not os.path.isfile(maps_path + "/flow-thousand_0"):
 			create_maps_files("--flow-thousand", f.thousand)
 	if name == "all" or name == "--big":
-		if not os.path.isfile("../maps/big_0"):
+		if not os.path.isfile(maps_path + "/big_0"):
 			create_maps_files("--big", f.big)
 	if name == "all" or name == "--big-superposition":
-		if not os.path.isfile("../maps/big-superposition_0"):
+		if not os.path.isfile(maps_path + "/big-superposition_0"):
 			create_maps_files("--big-superposition", f.big_superposition)
 	print()
 
@@ -74,14 +79,14 @@ def choice_maps():
 		print('\n')
 
 def launch(name):
-	if not os.path.exists("../Result"):
-		os.makedirs("../Result")
+	if not os.path.exists(result_path):
+		os.makedirs(result_path)
 	i = 0;
 	timer = []
 	print("\033[32m\tCorrection of " + name[:-1] + " in work.\033[0m")
 	while i < 10:
 		t1 = time()
-		os.system(".././lem-in " + "../maps/" + name + str(i) + " > " + "../Result/result-" + name + str(i))
+		os.system(lemin_path + maps_path + "/" + name + str(i) + " > " + result_path + "/result-" + name + str(i))
 		timer.append(round(time() - t1, 2))
 		i = i + 1;
 	correction(name, timer)
@@ -90,10 +95,10 @@ def correction(name, timer):
 	i = 0;
 	values = []
 	while i < 10:
-		with open("../Result/result-" + name + str(i), "r") as f:
-		    for line in f.readlines():
-		    	if (line.startswith("The right solution with ")):
-			    	values = findall(g_pattern, line)
+		with open(result_path + "/result-" + name + str(i), "r") as f:
+			for line in f.readlines():
+				if (line.startswith("The right solution with ")):
+					values = findall(g_pattern, line)
 		result1 = (("\033[32m" + values[2] + "\033[0m") if int(values[2]) <= int(values[3]) else ("\033[31m" + values[2] + "\033[0m"))
 		result2 = (("\033[32m" + values[3] + "\033[0m") if int(values[2]) > int(values[3]) else ("\033[31m" + values[3] + "\033[0m"))
 		difference = (" with a difference of " + (("\033[32m" + str(int(values[2]) - int(values[3])) + "\033[0m") if int(values[2]) - int(values[3]) <= 0 else ("\033[31m" + str(int(values[2]) - int(values[3])) + "\033[0m")))
@@ -102,15 +107,15 @@ def correction(name, timer):
 	print()
 
 choice = choice_maps()
-if os.path.isfile("../maps/flow-one_0") and (choice == 1 or choice == 2):
+if os.path.isfile(maps_path + "/flow-one_0") and (choice == 1 or choice == 2):
 	launch(f.one)
-if os.path.isfile("../maps/flow-ten_0") and (choice == 1 or choice == 3):
+if os.path.isfile(maps_path + "/flow-ten_0") and (choice == 1 or choice == 3):
 	launch(f.ten)
-if os.path.isfile("../maps/flow-thousand_0") and (choice == 1 or choice == 4):
+if os.path.isfile(maps_path + "/flow-thousand_0") and (choice == 1 or choice == 4):
 	launch(f.thousand)
-if os.path.isfile("../maps/big_0") and (choice == 1 or choice == 5):
+if os.path.isfile(maps_path + "/big_0") and (choice == 1 or choice == 5):
 	launch(f.big)
-if os.path.isfile("../maps/big-superposition_0") and (choice == 1 or choice == 6):
+if os.path.isfile(maps_path + "/big-superposition_0") and (choice == 1 or choice == 6):
 	launch(f.big_superposition)
 
 delete = input("""
@@ -118,7 +123,7 @@ delete = input("""
 	type : Yes or No
 	""")
 if delete == "Y" or delete == "y" or delete == "yes" or delete == "Yes":
-	os.system("rm -rf ../Result")
+	os.system("rm -rf " + result_path)
 	print("\033[31mResult directory deleted !\033[0m")
 elif delete == "N" or delete == "n" or delete == "no" or delete == "No":
 	print("\033[32mResult directory has conserved !\033[0m")
@@ -130,7 +135,7 @@ delete = input("""
 	type : Yes or No
 	""")
 if delete == "Y" or delete == "y" or delete == "yes" or delete == "Yes":
-	os.system("rm ../maps/*")
+	os.system("rm " + maps_path + "/*")
 	print("\033[31mMaps deleted !\033[0m")
 elif delete == "N" or delete == "n" or delete == "no" or delete == "No":
 	print("\033[32mMaps has conserved !\033[0m")

@@ -20,4 +20,5 @@ void	ft_putnstr(char const *s, size_t n)
 {
 	if (s)
 		write(1, s, ft_min(ft_strlen(s), n));
+	return ;
 }

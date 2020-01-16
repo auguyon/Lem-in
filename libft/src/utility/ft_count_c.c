@@ -10,18 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int     ft_count_c(const char *line, char c)
+int	ft_count_c(const char *line, char c)
 {
-    int i;
-    int count;
+	int i;
+	int count;
 
-    count = 0;
-    i = 0;
-    while (line[i])
-    {
-        if (line[i] == c)
-            count++;
-        i++;
-    }
-    return (count);
+	count = 0;
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == c)
+			count++;
+		i++;
+	}
+	return (count);
 }

@@ -96,15 +96,16 @@ void	prt_steps(t_data *dt, t_path **pos, int *path_nbrs, int *ant_first)
 	int j;
 
 	i = -1;
+	ft_printf("\n");
 	while (++i < dt->nbr_steps)
 	{
-		ft_printf("Step #%d: ", i);
+		ft_printf("Step #%d: ", i + 1);
 		j = -1;
 		while (++j < dt->ants)
 		{
 			if (i >= ant_first[j] && i + 1 < ant_first[j] +
 				pos[dt->nbr_paths][path_nbrs[j]].depth)
-				ft_printf("L%d-%s ", j, dt->name[pos[dt->nbr_paths]
+				ft_printf("L%d-%s ", j + 1, dt->name[pos[dt->nbr_paths]
 					[path_nbrs[j]].path[i + 1 - ant_first[j]]]);
 		}
 		ft_printf("\n");

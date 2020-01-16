@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void    ft_fill_nb(int *t, int nb, int size)
+void	ft_fill_nb(int *t, int nb, int size)
 {
-    int     i;
+	int	i;
 
-    i = 0;
-    while (i < size)
-        t[i++] = nb;
+	i = 0;
+	while (i < size)
+		t[i++] = nb;
 }
