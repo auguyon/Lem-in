@@ -96,7 +96,7 @@ void	solver_2(t_data *dt, t_solution *solution, t_path **possible,
 	{
 	}
 	if (solution->max_length == 0)
-		print_error(info->error = 1 ? -10 : info->error);
+		print_error(info->error == 1 ? -13 : info->error);
 	else
 	{
 		print_map(info->map_start);

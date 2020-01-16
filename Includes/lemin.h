@@ -114,7 +114,7 @@ void				init_struct_parse(t_data **dt, t_info **i);
 ** Parsing
 */
 t_btree				*parse_room(int fd, t_info *in, short code);
-int					check_error_room(t_btree *groot, t_info *in, int j);
+int					check_error_room(t_btree *groot, t_info *in, int j, int i);
 int					btree_search_name(t_btree *groot, int *j, char *find);
 int					btree_search_pos(t_btree *groot, int *j, int x, int y);
 t_btree				*add_room(t_btree *groot, t_info *in, short *code);

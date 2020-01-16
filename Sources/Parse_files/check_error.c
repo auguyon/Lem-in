@@ -19,6 +19,7 @@ static int	verif_room_name(t_btree *groot, char *line)
 
 	j = 0;
 	name = ft_strcdup(line, '-');
+	printf("name->{%s}\n", name);
 	if (btree_search_name(groot, &j, name) && j == 0)
 	{
 		free(name);
@@ -26,6 +27,7 @@ static int	verif_room_name(t_btree *groot, char *line)
 	}
 	free(name);
 	name = ft_strdup(line + (ft_strclen(line, '-') + 1));
+	printf("name->{%s}\n", name);
 	if (btree_search_name(groot, &j, name) && j == 0)
 	{
 		free(name);
@@ -61,13 +63,24 @@ int			check_error_link(t_btree *groot, t_info *info)
 	return (verif_room_name(groot, info->line));
 }
 
-int			check_error_room(t_btree *groot, t_info *in, int j)
+static int	free_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+		free(tab[i++]);
+	free(tab);
+	return(1);
+}
+
+int			check_error_room(t_btree *groot, t_info *in, int j, int i)
 {
 	char	**tab;
 
 	if (in->line[0] == '#')
 		return (its_comment(in->line, &(in->best_move)));
-	if (ft_count_c(in->line, '-') == 1)
+	if (ft_count_c(in->line, '-') == 1 && ft_count_c(in->line, ' ') != 2)
 		return (2);
 	if (!(ft_strlen(in->line)))
 		return (-4);
@@ -76,16 +89,17 @@ int			check_error_room(t_btree *groot, t_info *in, int j)
 		return (-3);
 	if (btree_search_name(groot, &j, tab[0]) && j == 1)
 		return (-8);
-	free(tab[0]);
 	if (!(j = 0) && !tab[1] && !tab[2])
 		return (-1);
-	if (ft_isint(tab[1]) != 2 && ft_isint(tab[2]) != 2)
-		return (-13);
+	i = ft_isint(tab[1]);
+	j = ft_isint(tab[2]);
+	if ((i != 1 && i != 2) && (j != 1 && j != 2))
+		return (-10);
 	in->x = ft_utoi(tab[1]);
 	in->y = ft_utoi(tab[2]);
-	if (btree_search_pos(groot, &j, in->x, in->y) && j == 1)
+	if (!(j = 0) && btree_search_pos(groot, &j, in->x, in->y) && j == 1)
 		return (-9);
-	return (1);
+	return (free_tab(tab));
 }
 
 

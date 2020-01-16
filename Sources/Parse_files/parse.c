@@ -90,8 +90,9 @@ t_btree		*parse_room(int fd, t_info *in, short code)
 	while ((in->error == 0 || in->error == 1) &&
 		get_next_line(fd, &in->line) && in->line)
 	{
+		printf("line->{%s}\n", in->line);
 		if (in->error == 1)
-			if ((in->error = check_error_room(groot, in, 0)) == 2)
+			if ((in->error = check_error_room(groot, in, 0, 0)) == 2)
 				break ;
 		if (in->ants == 0)
 			in->ants = get_ants(in);
